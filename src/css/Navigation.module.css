@@ -1,0 +1,12 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px; 
+  background-color: rgb(65, 65, 65);
+}
+
+.link {
+  color: white;
+  margin-right: 10px;
+}
