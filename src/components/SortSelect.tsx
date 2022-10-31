@@ -4,7 +4,7 @@ import { filterTodo } from "../store/reducers/TodoSlice";
 
 const SortSelect = () => {
   const dispatch = useAppDispatch();
-  const [sort, setSort] = useState("dateOfCreation");
+  const [sort, setSort] = useState("title");
 
   useEffect(() => {
     dispatch(filterTodo(sort));
@@ -19,6 +19,7 @@ const SortSelect = () => {
     >
       <option value={"title"}>by title</option>
       <option value={"dateOfCreation"}>by date</option>
+      <option value={"dateOfCreation_reverse"}>by date rev</option>
     </select>
   );
 };

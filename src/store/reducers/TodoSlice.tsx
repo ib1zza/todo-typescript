@@ -4,12 +4,14 @@ type Todo = {
   id: string;
   title: string;
   description?: string;
+  priority?: number;
   dateOfCreation: string;
   isCompleted?: boolean;
 };
 
 type TodoState = {
   list: Array<Todo>;
+  currentSort: string;
 };
 
 const initialState: TodoState = {
@@ -20,7 +22,14 @@ const initialState: TodoState = {
       description: "asdasd1",
       dateOfCreation: new Date().toISOString(),
     },
+    {
+      id: "2",
+      title: "zxc",
+      description: "zxzxc2",
+      dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+    },
   ],
+  currentSort: "title",
 };
 const TodoSlice = createSlice({
   name: "todo",
@@ -45,8 +54,15 @@ const TodoSlice = createSlice({
         state.list[elIndex].isCompleted = true;
       } //если нашелся элемент с таким id, то ставим ему комплитед тру
     },
+    editTodo: (state, action: PayloadAction<Todo>) => {
+      const edited = action.payload;
+      const elIndex = state.list.findIndex((el) => el.id === action.payload.id);
+      state.list[elIndex] = edited;
+    },
     filterTodo: (state, action: PayloadAction<string>) => {
-      switch (action.payload) {
+      switch (
+        action.payload === "current" ? state.currentSort : action.payload
+      ) {
         case "dateOfCreation":
           state.list.sort(
             (a, b) =>
@@ -54,9 +70,17 @@ const TodoSlice = createSlice({
           );
           console.log("filtered by date");
           return;
+
+        case "dateOfCreation_reverse":
+          state.list.sort(
+            (a, b) =>
+              Date.parse(a.dateOfCreation) - Date.parse(b.dateOfCreation)
+          );
+          console.log("filtered by date reversed");
+          return;
         case "title":
           state.list.sort((a, b) =>
-            a.title.toLowerCase() > b.title.toLowerCase() ? -1 : 1
+            a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
           );
           console.log("filtered by title");
           return;
@@ -65,6 +89,6 @@ const TodoSlice = createSlice({
   },
 });
 
-export const { createTodo, deleteTodo, completeTodo, filterTodo } =
+export const { createTodo, deleteTodo, completeTodo, filterTodo, editTodo } =
   TodoSlice.actions;
 export default TodoSlice.reducer;

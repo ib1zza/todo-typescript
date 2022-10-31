@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
-import { createTodo } from "../store/reducers/TodoSlice";
+import { createTodo, filterTodo } from "../store/reducers/TodoSlice";
 import Button from "../UI/Button";
 
 interface CreateTaskFormProps {
@@ -21,7 +21,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
     title: "",
     description: "",
   });
-
+  //функция проверяет записано ли чтото в заголовке нового туду и если да, то отправляет запрос на создание нового туду, а также вызывает перерисовку списка для его корректного отображения.
   const check = (e: React.FormEvent) => {
     e.preventDefault();
     if (state.title.trim()) {
@@ -37,6 +37,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
         title: "",
         description: "",
       });
+      dispatch(filterTodo("current"));
       hideF();
     }
   };
