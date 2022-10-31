@@ -1,0 +1,13 @@
+.todoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.todoDescription {
+    display: flex;
+    flex-direction: column;
+}

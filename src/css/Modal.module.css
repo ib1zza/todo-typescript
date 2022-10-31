@@ -1,0 +1,39 @@
+.modalBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(2, 2, 2, 1);
+
+    opacity: 0.8;
+    z-index: 99;
+}
+
+.modalBlock {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modalContent {
+    min-width: 40%;
+    max-width: 80%;
+    padding: 20px;
+    border-radius: 20px;
+    min-height: 40px;
+    background-color: #fff;
+    color: black;
+}
