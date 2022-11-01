@@ -8,7 +8,7 @@ interface EditFormProps {
     id: string;
     title: string;
     description?: string;
-    priority?: number;
+    priority: number;
     dateOfCreation: string;
     isCompleted?: boolean;
   };

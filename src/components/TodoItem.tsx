@@ -10,7 +10,7 @@ interface TodoItemProps {
     id: string;
     title: string;
     description?: string;
-    priority?: number;
+    priority: number;
     dateOfCreation: string;
     isCompleted?: boolean;
   };
@@ -21,22 +21,22 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const dispatch = useAppDispatch();
 
   let wrapperClasses = s.todoContainer;
-  if (todo.priority) {
-    switch (todo.priority) {
-      case 1:
-        wrapperClasses += " " + s.p1;
-        break;
-      case 2:
-        wrapperClasses += " " + s.p2;
-        break;
-      case 3:
-        wrapperClasses += " " + s.p3;
-        break;
-      case 4:
-        wrapperClasses += " " + s.p4;
-        break;
-    }
+
+  switch (todo.priority) {
+    case 1:
+      wrapperClasses += " " + s.p1;
+      break;
+    case 2:
+      wrapperClasses += " " + s.p2;
+      break;
+    case 3:
+      wrapperClasses += " " + s.p3;
+      break;
+    case 4:
+      wrapperClasses += " " + s.p4;
+      break;
   }
+
   return (
     <div className={wrapperClasses}>
       <div className={s.todoDescription}>

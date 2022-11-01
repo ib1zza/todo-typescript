@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 
 type Todo = {
   id: string;
   title: string;
   description?: string;
-  priority?: number;
+  priority: number;
   dateOfCreation: string;
   isCompleted?: boolean;
 };
@@ -21,6 +21,7 @@ const initialState: TodoState = {
       title: "asd",
       description: "asdasd1",
       dateOfCreation: new Date().toISOString(),
+      priority: 0,
     },
     {
       id: "2",
@@ -54,9 +55,10 @@ const TodoSlice = createSlice({
       state.list[elIndex] = edited;
     },
     filterTodo: (state, action: PayloadAction<string>) => {
-      switch (
-        action.payload === "current" ? state.currentSort : action.payload
-      ) {
+      state.currentSort =
+        action.payload === "current" ? state.currentSort : action.payload;
+
+      switch (state.currentSort) {
         case "dateOfCreation":
           state.list.sort(
             (a, b) =>
@@ -77,6 +79,9 @@ const TodoSlice = createSlice({
             a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
           );
           console.log("filtered by title");
+          return;
+        case "priority":
+          state.list.sort((a, b) => a.priority - b.priority);
           return;
       }
     },
