@@ -27,6 +27,7 @@ const initialState: TodoState = {
       title: "zxc",
       description: "zxzxc2",
       dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+      priority: 2,
     },
   ],
   currentSort: "title",
@@ -36,14 +37,7 @@ const TodoSlice = createSlice({
   initialState,
   reducers: {
     createTodo: (state, action: PayloadAction<Todo>) => {
-      const newTodo: Todo = {
-        id: Date.now().toString(),
-        title: action.payload.title,
-        description: action.payload.description,
-        dateOfCreation: action.payload.dateOfCreation,
-        isCompleted: false,
-      };
-      state.list.push(newTodo);
+      state.list.push(action.payload);
     },
     deleteTodo: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((el) => el.id !== action.payload);

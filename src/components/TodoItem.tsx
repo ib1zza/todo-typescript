@@ -22,7 +22,20 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
 
   let wrapperClasses = s.todoContainer;
   if (todo.priority) {
-    wrapperClasses += " " + s.p1;
+    switch (todo.priority) {
+      case 1:
+        wrapperClasses += " " + s.p1;
+        break;
+      case 2:
+        wrapperClasses += " " + s.p2;
+        break;
+      case 3:
+        wrapperClasses += " " + s.p3;
+        break;
+      case 4:
+        wrapperClasses += " " + s.p4;
+        break;
+    }
   }
   return (
     <div className={wrapperClasses}>

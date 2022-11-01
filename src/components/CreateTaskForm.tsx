@@ -20,6 +20,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
   const [state, setState] = useState({
     title: "",
     description: "",
+    priority: 0,
   });
   //функция проверяет записано ли чтото в заголовке нового туду и если да, то отправляет запрос на создание нового туду, а также вызывает перерисовку списка для его корректного отображения.
   const check = (e: React.FormEvent) => {
@@ -31,11 +32,14 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
           title: state.title,
           description: state.description.trim() ? state.description : undefined,
           dateOfCreation: new Date().toISOString(),
+          priority: state.priority,
         })
       );
+      console.log(state.priority);
       setState({
         title: "",
         description: "",
+        priority: 0,
       });
       dispatch(filterTodo("current"));
       hideF();
@@ -64,6 +68,19 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
           })
         }
       />
+
+      <select
+        value={state.priority}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+          setState({ ...state, priority: Number(e.target.value) });
+        }}
+      >
+        <option value={"1"}>priority 1</option>
+        <option value={"2"}>priority 2</option>
+        <option value={"3"}>priority 3</option>
+        <option value={"4"}>priority 4</option>
+        <option value={"0"}>not selected</option>
+      </select>
 
       <Button type={"submit"}>Create task</Button>
     </form>
