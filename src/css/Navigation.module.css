@@ -10,3 +10,7 @@
   color: white;
   margin-right: 10px;
 }
+
+.link_active {
+  color: red;
+}

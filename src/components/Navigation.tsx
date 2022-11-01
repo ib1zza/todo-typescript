@@ -2,13 +2,17 @@ import { Link, NavLink } from "react-router-dom";
 import s from "../css/Navigation.module.css";
 import React from "react";
 
+const setStyles = ({ isActive }: { isActive: any }) => {
+  return isActive ? s.link_active : s.link;
+};
+
 const Navigation: React.FC = () => {
   return (
     <nav className={s.navigation}>
-      <NavLink className={s.link} to="/">
+      <NavLink className={setStyles} to="/home">
         Home
       </NavLink>
-      <NavLink className={s.link} to="/favourites">
+      <NavLink className={setStyles} to="/favourites">
         Favourites
       </NavLink>
     </nav>

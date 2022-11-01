@@ -3,7 +3,6 @@ import { useAppDispatch } from "../hooks/hooks";
 import s from "../css/TodoItem.module.css";
 import Button from "../UI/Button";
 import { deleteTodo } from "../store/reducers/TodoSlice";
-import ContextMenu from "../UI/ContextMenu";
 import EditForm from "./EditForm";
 
 interface TodoItemProps {
@@ -11,6 +10,7 @@ interface TodoItemProps {
     id: string;
     title: string;
     description?: string;
+    priority?: number;
     dateOfCreation: string;
     isCompleted?: boolean;
   };
@@ -20,8 +20,12 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
 
+  let wrapperClasses = s.todoContainer;
+  if (todo.priority) {
+    wrapperClasses += " " + s.p1;
+  }
   return (
-    <div className={s.todoContainer}>
+    <div className={wrapperClasses}>
       <div className={s.todoDescription}>
         {editMode ? (
           <EditForm prevTodo={todo} closeF={() => setEditMode(false)} />
