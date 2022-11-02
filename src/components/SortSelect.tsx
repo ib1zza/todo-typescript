@@ -20,6 +20,7 @@ const SortSelect = () => {
       <option value={"title"}>by title</option>
       <option value={"dateOfCreation"}>by date</option>
       <option value={"dateOfCreation_reverse"}>by date rev</option>
+      <option value={"priority"}>priority</option>
     </select>
   );
 };

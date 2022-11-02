@@ -7,10 +7,12 @@ type Todo = {
   priority?: number;
   dateOfCreation: string;
   isCompleted?: boolean;
+  dateOfCompletion?: string;
 };
 
 type TodoState = {
   list: Array<Todo>;
+  completedList: Array<Todo>;
   currentSort: string;
 };
 
@@ -27,6 +29,15 @@ const initialState: TodoState = {
       title: "zxc",
       description: "zxzxc2",
       dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+    },
+  ],
+  completedList: [
+    {
+      id: "100",
+      title: "completed task",
+      description: "comp1",
+      dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+      dateOfCompletion: Date.now().toString(),
     },
   ],
   currentSort: "title",

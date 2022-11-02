@@ -1,13 +1,34 @@
 .todoContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 2px solid green;
-    border-radius: 10px;
-    padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 10px;
+  border-color: gray;
 }
 
 .todoDescription {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+.p1 {
+  border-color: red;
+}
+
+.p2 {
+  border-color: orange;
+}
+
+.p3 {
+  border-color: green;
+}
+
+.p4 {
+  border-color: gray;
+}
+
+.timeBlock {
+  font-size: 14px;
 }
