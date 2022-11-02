@@ -52,6 +52,7 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, closeF }) => {
         />
       </div>
       <Button onClick={() => handler()}>Submit</Button>
+      <Button onClick={() => closeF()}>Back</Button>
     </div>
   );
 };

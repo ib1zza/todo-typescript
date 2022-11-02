@@ -1,16 +1,18 @@
-import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Todo = {
   id: string;
   title: string;
   description?: string;
-  priority: number;
+  priority?: number;
   dateOfCreation: string;
   isCompleted?: boolean;
+  dateOfCompletion?: string;
 };
 
 type TodoState = {
   list: Array<Todo>;
+  completedList: Array<Todo>;
   currentSort: string;
 };
 
@@ -21,14 +23,21 @@ const initialState: TodoState = {
       title: "asd",
       description: "asdasd1",
       dateOfCreation: new Date().toISOString(),
-      priority: 0,
     },
     {
       id: "2",
       title: "zxc",
       description: "zxzxc2",
       dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
-      priority: 2,
+    },
+  ],
+  completedList: [
+    {
+      id: "100",
+      title: "completed task",
+      description: "comp1",
+      dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+      dateOfCompletion: Date.now().toString(),
     },
   ],
   currentSort: "title",
@@ -38,7 +47,14 @@ const TodoSlice = createSlice({
   initialState,
   reducers: {
     createTodo: (state, action: PayloadAction<Todo>) => {
-      state.list.push(action.payload);
+      const newTodo: Todo = {
+        id: Date.now().toString(),
+        title: action.payload.title,
+        description: action.payload.description,
+        dateOfCreation: action.payload.dateOfCreation,
+        isCompleted: false,
+      };
+      state.list.push(newTodo);
     },
     deleteTodo: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((el) => el.id !== action.payload);
@@ -55,10 +71,9 @@ const TodoSlice = createSlice({
       state.list[elIndex] = edited;
     },
     filterTodo: (state, action: PayloadAction<string>) => {
-      state.currentSort =
-        action.payload === "current" ? state.currentSort : action.payload;
-
-      switch (state.currentSort) {
+      switch (
+        action.payload === "current" ? state.currentSort : action.payload
+      ) {
         case "dateOfCreation":
           state.list.sort(
             (a, b) =>
@@ -79,9 +94,6 @@ const TodoSlice = createSlice({
             a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
           );
           console.log("filtered by title");
-          return;
-        case "priority":
-          state.list.sort((a, b) => a.priority - b.priority);
           return;
       }
     },

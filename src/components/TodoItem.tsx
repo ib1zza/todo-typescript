@@ -50,7 +50,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         )}
       </div>
       <Button onClick={() => setEditMode((editMode) => !editMode)}>Edit</Button>
-      <span>{todo.dateOfCreation}</span>
+      <span className={s.timeBlock}>
+        {todo.dateOfCreation.slice(5, 10) +
+          " " +
+          todo.dateOfCreation.slice(11, 19)}
+      </span>
 
       <Button onClick={() => dispatch(deleteTodo(todo.id))}>Delete</Button>
     </div>
