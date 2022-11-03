@@ -6,15 +6,16 @@ import Button from "../UI/Button";
 import Wrapper from "../UI/Wrapper";
 import s from "../css/HomePage.module.css";
 import SortSelect from "../components/SortSelect";
+import { useAppSelector } from "../hooks/hooks";
 
 const HomePage: React.FC = () => {
   const [modal, setModal] = useState(false);
-
+  const todos = useAppSelector((state) => state.todo.list);
   return (
     <div>
       <Wrapper>
         <div className={s.todoBlock}>
-          <TodoList />
+          <TodoList todos={todos} />
 
           <Button onClick={() => setModal((modal) => !modal)}>
             create task

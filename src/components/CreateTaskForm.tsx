@@ -20,7 +20,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
   const [state, setState] = useState({
     title: "",
     description: "",
-    priority: 0,
+    priority: 4,
   });
   //функция проверяет записано ли чтото в заголовке нового туду и если да, то отправляет запрос на создание нового туду, а также вызывает перерисовку списка для его корректного отображения.
   const check = (e: React.FormEvent) => {
@@ -78,8 +78,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
         <option value={"1"}>priority 1</option>
         <option value={"2"}>priority 2</option>
         <option value={"3"}>priority 3</option>
-        <option value={"4"}>priority 4</option>
-        <option value={"0"}>not selected</option>
+        <option value={"4"}>not selected</option>
       </select>
 
       <Button type={"submit"}>Create task</Button>

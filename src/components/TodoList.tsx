@@ -1,18 +1,24 @@
 import * as React from "react";
-import { useAppSelector } from "../hooks/hooks";
 import TodoItem from "./TodoItem";
 import s from "../css/TodoList.module.css";
-import { useState } from "react";
+import { Todo, TodoCompleted } from "../types";
+import TodoItemCompleted from "./TodoItemCompleted";
 
-const TodoList: React.FC = () => {
-  const todos = useAppSelector((state) => state.todo.list);
+interface TodoListProps {
+  todos: Array<Todo>;
+}
 
+const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
     <div className={s.todolistContainer}>
       {todos.length ? null : "no todos found"}
-      {todos.map((el) => (
-        <TodoItem todo={el} key={el.id} />
-      ))}
+      {todos.map((el) =>
+        el.dateOfCompletion === undefined ? (
+          <TodoItem todo={el} key={el.id} />
+        ) : (
+          <TodoItemCompleted todo={el} key={el.id} />
+        )
+      )}
     </div>
   );
 };

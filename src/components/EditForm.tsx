@@ -2,16 +2,10 @@ import React, { useState } from "react";
 import Button from "../UI/Button";
 import { useAppDispatch } from "../hooks/hooks";
 import { editTodo } from "../store/reducers/TodoSlice";
+import { Todo } from "../types";
 
 interface EditFormProps {
-  prevTodo: {
-    id: string;
-    title: string;
-    description?: string;
-    priority: number;
-    dateOfCreation: string;
-    isCompleted?: boolean;
-  };
+  prevTodo: Todo;
   closeF: () => void;
 }
 

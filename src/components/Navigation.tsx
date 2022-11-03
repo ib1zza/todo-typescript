@@ -12,8 +12,8 @@ const Navigation: React.FC = () => {
       <NavLink className={setStyles} to="/home">
         Home
       </NavLink>
-      <NavLink className={setStyles} to="/favourites">
-        Favourites
+      <NavLink className={setStyles} to="/completed">
+        Completed
       </NavLink>
     </nav>
   );

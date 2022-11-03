@@ -2,18 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
 import s from "../css/TodoItem.module.css";
 import Button from "../UI/Button";
-import { deleteTodo } from "../store/reducers/TodoSlice";
+import { completeTodo, deleteTodo } from "../store/reducers/TodoSlice";
 import EditForm from "./EditForm";
+import { Todo, TodoCompleted } from "../types";
 
 interface TodoItemProps {
-  todo: {
-    id: string;
-    title: string;
-    description?: string;
-    priority: number;
-    dateOfCreation: string;
-    isCompleted?: boolean;
-  };
+  todo: Todo;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
@@ -21,7 +15,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const dispatch = useAppDispatch();
 
   let wrapperClasses = s.todoContainer;
-
+  if (todo.hasOwnProperty("dateOfCompletion")) {
+  }
   switch (todo.priority) {
     case 1:
       wrapperClasses += " " + s.p1;
@@ -39,6 +34,15 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
 
   return (
     <div className={wrapperClasses}>
+      {!editMode ? (
+        <button
+          className={s.completeButton}
+          onClick={() => dispatch(completeTodo(todo.id))}
+        >
+          Done
+        </button>
+      ) : null}
+
       <div className={s.todoDescription}>
         {editMode ? (
           <EditForm prevTodo={todo} closeF={() => setEditMode(false)} />
