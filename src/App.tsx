@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import "./nullstyle.css";
 import HomePage from "./pages/HomePage";
 import Navigation from "./components/Navigation";
 import CompletedPage from "./pages/CompletedPage";

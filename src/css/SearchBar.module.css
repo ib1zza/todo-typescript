@@ -1,0 +1,11 @@
+.searchBar {
+    display: flex;
+    border-radius: 5px;
+    min-height: 30px;
+    background-color: #e1e1e1;
+    min-width: 70px;
+}
+
+.searchBar:hover {
+    background-color: white;
+}

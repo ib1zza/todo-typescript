@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
 import s from "../css/TodoItem.module.css";
 import Button from "../UI/Button";
 import { completeTodo, deleteTodo } from "../store/reducers/TodoSlice";
 import EditForm from "./EditForm";
-import { Todo, TodoCompleted } from "../types";
+import { Todo } from "../types";
 
 interface TodoItemProps {
   todo: Todo;

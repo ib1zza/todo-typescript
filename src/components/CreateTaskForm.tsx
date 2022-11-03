@@ -23,8 +23,8 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
     priority: 4,
   });
   //функция проверяет записано ли чтото в заголовке нового туду и если да, то отправляет запрос на создание нового туду, а также вызывает перерисовку списка для его корректного отображения.
-  const check = (e: React.FormEvent) => {
-    e.preventDefault();
+  const check = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (state.title.trim()) {
       dispatch(
         createTodo({
@@ -35,13 +35,12 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
           priority: state.priority,
         })
       );
-      console.log(state.priority);
       setState({
         title: "",
         description: "",
         priority: 0,
       });
-      dispatch(filterTodo("current"));
+      dispatch(filterTodo());
       hideF();
     }
   };
@@ -56,6 +55,9 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideF }) => {
           setState((state) => {
             return { ...state, title: e.target.value };
           })
+        }
+        onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+          e.key === "Enter" ? check() : null
         }
       />
       <input

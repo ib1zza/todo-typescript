@@ -1,5 +1,5 @@
 import TodoList from "../components/TodoList";
-import React, { useEffect } from "react";
+import React from "react";
 import { useAppSelector } from "../hooks/hooks";
 import Wrapper from "../UI/Wrapper";
 

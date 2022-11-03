@@ -6,7 +6,7 @@ type Todo = {
   description?: string;
   priority: number;
   dateOfCreation: string;
-  isCompleted?: boolean;
+  // isCompleted?: boolean;
   dateOfCompletion?: string;
 };
 
@@ -74,9 +74,8 @@ const TodoSlice = createSlice({
       const elIndex = state.list.findIndex((el) => el.id === action.payload.id);
       state.list[elIndex] = edited;
     },
-    filterTodo: (state, action: PayloadAction<string>) => {
-      state.currentSort =
-        action.payload === "current" ? state.currentSort : action.payload;
+    filterTodo: (state, action: PayloadAction<string | undefined>) => {
+      if (action.payload) state.currentSort = action.payload;
 
       switch (state.currentSort) {
         case "dateOfCreation":
@@ -84,21 +83,17 @@ const TodoSlice = createSlice({
             (a, b) =>
               Date.parse(b.dateOfCreation) - Date.parse(a.dateOfCreation)
           );
-          console.log("filtered by date");
           return;
-
         case "dateOfCreation_reverse":
           state.list.sort(
             (a, b) =>
               Date.parse(a.dateOfCreation) - Date.parse(b.dateOfCreation)
           );
-          console.log("filtered by date reversed");
           return;
         case "title":
           state.list.sort((a, b) =>
             a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
           );
-          console.log("filtered by title");
           return;
         case "priority":
           state.list.sort((a, b) => a.priority - b.priority);
