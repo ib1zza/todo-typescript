@@ -5,6 +5,11 @@ import Button from "../UI/Button";
 import { completeTodo, deleteTodo } from "../store/reducers/TodoSlice";
 import EditForm from "./EditForm";
 import { Todo } from "../types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
+import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons/faCircleCheck";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare";
 
 interface TodoItemProps {
   todo: Todo;
@@ -39,7 +44,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           className={s.completeButton}
           onClick={() => dispatch(completeTodo(todo.id))}
         >
-          Done
+          <FontAwesomeIcon icon={faCircleCheck} />
         </button>
       ) : null}
 
@@ -53,14 +58,18 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           </div>
         )}
       </div>
-      <Button onClick={() => setEditMode((editMode) => !editMode)}>Edit</Button>
+      <Button onClick={() => setEditMode((editMode) => !editMode)}>
+        Edit <FontAwesomeIcon icon={faPenToSquare} />
+      </Button>
       <span className={s.timeBlock}>
         {todo.dateOfCreation.slice(5, 10) +
           " " +
           todo.dateOfCreation.slice(11, 19)}
       </span>
 
-      <Button onClick={() => dispatch(deleteTodo(todo.id))}>Delete</Button>
+      <Button onClick={() => dispatch(deleteTodo(todo.id))}>
+        <FontAwesomeIcon icon={faXmark} />
+      </Button>
     </div>
   );
 };

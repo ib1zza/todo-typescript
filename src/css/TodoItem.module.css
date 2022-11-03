@@ -20,6 +20,9 @@
   height: 50px;
   background-color: #8bff59;
   color: white;
+  font-size: 40px;
+  color: green;
+  background-color: transparent;
 }
 .p0 {
   border-color: gray;

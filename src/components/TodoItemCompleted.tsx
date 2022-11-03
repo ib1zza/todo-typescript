@@ -4,6 +4,8 @@ import s from "../css/TodoItem.module.css";
 import Button from "../UI/Button";
 import { deleteCompletedTodo, deleteTodo } from "../store/reducers/TodoSlice";
 import { Todo, TodoCompleted } from "../types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 
 interface TodoItemCompletedProps {
   todo: Todo;
@@ -51,7 +53,7 @@ const TodoItemCompleted: React.FC<TodoItemCompletedProps> = ({ todo }) => {
       </span>
 
       <Button onClick={() => dispatch(deleteCompletedTodo(todo.id))}>
-        Delete
+        <FontAwesomeIcon icon={faXmark} />
       </Button>
     </div>
   );

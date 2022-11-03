@@ -3,6 +3,8 @@ import Button from "../UI/Button";
 import { useAppDispatch } from "../hooks/hooks";
 import { editTodo } from "../store/reducers/TodoSlice";
 import { Todo } from "../types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
 interface EditFormProps {
   prevTodo: Todo;
@@ -45,8 +47,12 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, closeF }) => {
           }
         />
       </div>
-      <Button onClick={() => handler()}>Submit</Button>
-      <Button onClick={() => closeF()}>Back</Button>
+      <Button onClick={() => handler()}>
+        Submit <FontAwesomeIcon icon={faCheck} />
+      </Button>
+      <Button onClick={() => closeF()}>
+        Back <FontAwesomeIcon icon={faRotateLeft} />
+      </Button>
     </div>
   );
 };

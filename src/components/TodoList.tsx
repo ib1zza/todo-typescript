@@ -13,11 +13,18 @@ interface TodoListProps {
 const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
+  const todosFiltered = [...todos].filter(
+    (el) =>
+      el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      new Date(el.dateOfCreation)
+        .toLocaleDateString()
+        .includes(searchQuery.toLowerCase())
+  );
   return (
     <>
       <div className={s.todolistContainer}>
-        {todos.length ? null : "no todos found"}
-        {todos.map((el) =>
+        {todosFiltered.length ? null : "no todos found"}
+        {todosFiltered.map((el) =>
           el.dateOfCompletion === undefined ? (
             <TodoItem todo={el} key={el.id} />
           ) : (
@@ -26,7 +33,12 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
         )}
       </div>
 
-      <SearchBar />
+      <SearchBar
+        value={searchQuery}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setSearchQuery(e.target.value)
+        }
+      />
     </>
   );
 };

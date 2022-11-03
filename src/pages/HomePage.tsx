@@ -7,6 +7,8 @@ import Wrapper from "../UI/Wrapper";
 import s from "../css/HomePage.module.css";
 import SortSelect from "../components/SortSelect";
 import { useAppSelector } from "../hooks/hooks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 const HomePage: React.FC = () => {
   const [modal, setModal] = useState(false);
@@ -18,7 +20,7 @@ const HomePage: React.FC = () => {
           <TodoList todos={todos} />
 
           <Button onClick={() => setModal((modal) => !modal)}>
-            create task
+            <FontAwesomeIcon icon={faPlus} fontSize={"30px"} />
           </Button>
           <SortSelect />
         </div>
