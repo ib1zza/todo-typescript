@@ -14,6 +14,5 @@ export type TodoCompleted = {
   description?: string;
   priority: number;
   dateOfCreation: string;
-  isCompleted?: boolean;
   dateOfCompletion: string;
 };

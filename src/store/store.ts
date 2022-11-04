@@ -1,9 +1,10 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import TodoSlice from "./reducers/TodoSlice";
+import TodoCompletedSlice from "./reducers/TodoCompletedSlice";
 
 const store = configureStore({
-    reducer: {todo: TodoSlice,}
-})
+  reducer: { todo: TodoSlice, todoCompleted: TodoCompletedSlice },
+});
 
 export default store;
 

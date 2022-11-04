@@ -6,15 +6,12 @@ type Todo = {
   description?: string;
   priority: number;
   dateOfCreation: string;
-  // isCompleted?: boolean;
-  dateOfCompletion?: string;
 };
 
 type TodoState = {
   list: Array<Todo>;
   completedList: Array<Todo>;
   currentSort: string;
-  currentSortCompleted: string;
 };
 
 const initialState: TodoState = {
@@ -34,18 +31,8 @@ const initialState: TodoState = {
       priority: 2,
     },
   ],
-  completedList: [
-    {
-      id: "100",
-      title: "completed task",
-      description: "comp1",
-      priority: 4,
-      dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
-      dateOfCompletion: new Date(Date.now()).toISOString(),
-    },
-  ],
+  completedList: [],
   currentSort: "title",
-  currentSortCompleted: "title",
 };
 const TodoSlice = createSlice({
   name: "todo",
@@ -57,18 +44,7 @@ const TodoSlice = createSlice({
     deleteTodo: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((el) => el.id !== action.payload);
     },
-    deleteCompletedTodo: (state, action: PayloadAction<string>) => {
-      state.completedList = state.completedList.filter(
-        (el) => el.id !== action.payload
-      );
-    },
     completeTodo: (state, action: PayloadAction<string>) => {
-      const el = state.list.find((el) => el.id === action.payload);
-
-      if (el !== undefined) {
-        el.dateOfCompletion = new Date(Date.now()).toISOString();
-        state.completedList.push(el);
-      }
       state.list = state.list.filter((el) => el.id !== action.payload);
     },
     editTodo: (state, action: PayloadAction<Todo>) => {
@@ -105,12 +81,6 @@ const TodoSlice = createSlice({
   },
 });
 
-export const {
-  createTodo,
-  deleteTodo,
-  completeTodo,
-  filterTodo,
-  editTodo,
-  deleteCompletedTodo,
-} = TodoSlice.actions;
+export const { createTodo, deleteTodo, completeTodo, filterTodo, editTodo } =
+  TodoSlice.actions;
 export default TodoSlice.reducer;

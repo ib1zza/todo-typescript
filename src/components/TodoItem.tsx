@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons/faCircleCheck";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare";
+import { addTodo } from "../store/reducers/TodoCompletedSlice";
 
 interface TodoItemProps {
   todo: Todo;
@@ -41,7 +42,15 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       {!editMode ? (
         <button
           className={s.completeButton}
-          onClick={() => dispatch(completeTodo(todo.id))}
+          onClick={() => {
+            dispatch(
+              addTodo({
+                ...todo,
+                dateOfCompletion: new Date(Date.now()).toISOString(),
+              })
+            );
+            dispatch(completeTodo(todo.id));
+          }}
         >
           <FontAwesomeIcon icon={faCircleCheck} />
         </button>
