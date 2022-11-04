@@ -14,6 +14,7 @@ type TodoState = {
   list: Array<Todo>;
   completedList: Array<Todo>;
   currentSort: string;
+  currentSortCompleted: string;
 };
 
 const initialState: TodoState = {
@@ -44,6 +45,7 @@ const initialState: TodoState = {
     },
   ],
   currentSort: "title",
+  currentSortCompleted: "title",
 };
 const TodoSlice = createSlice({
   name: "todo",

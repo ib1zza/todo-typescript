@@ -7,7 +7,6 @@ import EditForm from "./EditForm";
 import { Todo } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
-import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons/faCircleCheck";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare";
 
