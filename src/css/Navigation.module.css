@@ -6,11 +6,15 @@
   background-color: rgb(65, 65, 65);
 }
 
+.navigation>:not(:last-child) {
+  margin-right: 15px;
+}
+
 .link {
   color: white;
-  margin-right: 10px;
 }
 
 .link_active {
   color: red;
+
 }

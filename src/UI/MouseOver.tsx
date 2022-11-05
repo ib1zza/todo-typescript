@@ -8,8 +8,6 @@ interface MouseOverProps {
 }
 
 const MouseOver: React.FC<MouseOverProps> = ({ children, text }) => {
-  const [show, setShow] = useState(false);
-  const opacity = show ? 0 : 1;
   return (
     <>
       <div className={s.block}>

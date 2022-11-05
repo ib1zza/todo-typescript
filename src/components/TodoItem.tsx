@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { addTodo } from "../store/reducers/TodoCompletedSlice";
 import MouseOver from "../UI/MouseOver";
+import TodoDescription from "./TodoDescription";
 
 interface TodoItemProps {
   todo: Todo;
@@ -24,8 +25,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const dispatch = useAppDispatch();
 
   let wrapperClasses = s.todoContainer;
-  if (todo.hasOwnProperty("dateOfCompletion")) {
-  }
+
   switch (todo.priority) {
     case 1:
       wrapperClasses += " " + s.p1;
@@ -63,15 +63,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           {editMode ? (
             <EditForm prevTodo={todo} onAbort={() => setEditMode(false)} />
           ) : (
-            <div className={s.todo_info}>
-              <h2 className={s.todo_title}>{todo.title}</h2>
-              <p className={s.todo_description}>{todo.description || null}</p>
-            </div>
+            <TodoDescription todo={todo} />
           )}
         </>
       </div>
       <div className={s.buttons}>
-        {" "}
         <Button onClick={() => setEditMode((editMode) => !editMode)}>
           Edit <FontAwesomeIcon icon={faPenToSquare} />
         </Button>

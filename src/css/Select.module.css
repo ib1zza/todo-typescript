@@ -1,5 +1,5 @@
 .select {
-    background-color: #bdbdbd;
+    background-color: #e3e3e3;
     border-radius: 10px;
     padding: 5px 10px;
     border: 1px solid black;
@@ -14,4 +14,8 @@
     background-color: transparent;
     pointer-events: none;
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+
+.select:active, .select:focus {
+    background-color: #9f9f9f;
 }
