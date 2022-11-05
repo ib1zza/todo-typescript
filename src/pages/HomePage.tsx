@@ -40,7 +40,10 @@ const HomePage: React.FC = () => {
         <div className={s.todoBlock}>
           <TodoList todos={todosFiltered} />
 
-          <Button onClick={() => setModal((modal) => !modal)}>
+          <Button
+            style={{ borderRadius: "50%" }}
+            onClick={() => setModal((modal) => !modal)}
+          >
             <FontAwesomeIcon icon={faPlus} fontSize={"30px"} />
           </Button>
           <SortSelect
@@ -64,8 +67,11 @@ const HomePage: React.FC = () => {
       </Wrapper>
 
       {modal ? (
-        <Modal hideF={() => setModal((modal) => !modal)}>
-          <CreateTaskForm hideF={() => setModal((modal) => !modal)} />
+        <Modal
+          title={"Create new task"}
+          hideF={() => setModal((modal) => !modal)}
+        >
+          <CreateTaskForm hideModal={() => setModal((modal) => !modal)} />
         </Modal>
       ) : null}
     </div>

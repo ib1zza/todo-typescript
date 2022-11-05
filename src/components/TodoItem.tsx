@@ -6,10 +6,14 @@ import { completeTodo, deleteTodo } from "../store/reducers/TodoSlice";
 import EditForm from "./EditForm";
 import { Todo } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons/faCircleCheck";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare";
+import {
+  faCircleCheck,
+  faPenToSquare,
+  faInfo,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { addTodo } from "../store/reducers/TodoCompletedSlice";
+import MouseOver from "../UI/MouseOver";
 
 interface TodoItemProps {
   todo: Todo;
@@ -39,45 +43,52 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
 
   return (
     <div className={wrapperClasses}>
-      {!editMode ? (
-        <button
-          className={s.completeButton}
-          onClick={() => {
-            dispatch(
-              addTodo({
-                ...todo,
-                dateOfCompletion: new Date(Date.now()).toISOString(),
-              })
-            );
-            dispatch(completeTodo(todo.id));
-          }}
-        >
-          <FontAwesomeIcon icon={faCircleCheck} />
-        </button>
-      ) : null}
-
-      <div className={s.todoDescription}>
-        {editMode ? (
-          <EditForm prevTodo={todo} closeF={() => setEditMode(false)} />
-        ) : (
-          <div>
-            <h2>{todo.title}</h2>
-            <p>{todo.description || null}</p>
-          </div>
-        )}
+      <div className={s.todo_block__description}>
+        <>
+          <button
+            disabled={editMode}
+            className={s.completeButton}
+            onClick={() => {
+              dispatch(
+                addTodo({
+                  ...todo,
+                  dateOfCompletion: new Date(Date.now()).toISOString(),
+                })
+              );
+              dispatch(completeTodo(todo.id));
+            }}
+          >
+            <FontAwesomeIcon icon={faCircleCheck} />
+          </button>
+          {editMode ? (
+            <EditForm prevTodo={todo} onAbort={() => setEditMode(false)} />
+          ) : (
+            <div className={s.todo_info}>
+              <h2 className={s.todo_title}>{todo.title}</h2>
+              <p className={s.todo_description}>{todo.description || null}</p>
+            </div>
+          )}
+        </>
       </div>
-      <Button onClick={() => setEditMode((editMode) => !editMode)}>
-        Edit <FontAwesomeIcon icon={faPenToSquare} />
-      </Button>
-      <span className={s.timeBlock}>
-        {todo.dateOfCreation.slice(5, 10) +
-          " " +
-          todo.dateOfCreation.slice(11, 19)}
-      </span>
-
-      <Button onClick={() => dispatch(deleteTodo(todo.id))}>
-        <FontAwesomeIcon icon={faXmark} />
-      </Button>
+      <div className={s.buttons}>
+        {" "}
+        <Button onClick={() => setEditMode((editMode) => !editMode)}>
+          Edit <FontAwesomeIcon icon={faPenToSquare} />
+        </Button>
+        <MouseOver
+          text={
+            "Date of creation: " +
+            todo.dateOfCreation.slice(0, 10) +
+            " " +
+            todo.dateOfCreation.slice(11, 19)
+          }
+        >
+          <FontAwesomeIcon icon={faInfo} />
+        </MouseOver>
+        <Button onClick={() => dispatch(deleteTodo(todo.id))}>
+          <FontAwesomeIcon icon={faXmark} />
+        </Button>
+      </div>
     </div>
   );
 };

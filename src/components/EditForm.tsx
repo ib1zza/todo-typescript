@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../UI/Button";
 import { useAppDispatch } from "../hooks/hooks";
 import { editTodo } from "../store/reducers/TodoSlice";
@@ -6,19 +6,22 @@ import { Todo } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
+import s from "../css/EditForm.module.css";
+
 interface EditFormProps {
   prevTodo: Todo;
-  closeF: () => void;
+  onAbort: () => void;
 }
 
-const EditForm: React.FC<EditFormProps> = ({ prevTodo, closeF }) => {
+const EditForm: React.FC<EditFormProps> = ({ prevTodo, onAbort }) => {
   const [data, setData] = useState({
     title: prevTodo.title,
     description: prevTodo.description,
   });
   const dispatch = useAppDispatch();
+  const titleInput = useRef<HTMLInputElement>(null);
 
-  const handler = (): void => {
+  const submitHandler = (): void => {
     dispatch(
       editTodo({
         ...prevTodo,
@@ -26,13 +29,21 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, closeF }) => {
         description: data.description ? data.description : undefined,
       })
     );
-    closeF();
+    onAbort();
   };
 
+  useEffect(() => {
+    if (titleInput.current !== null) {
+      titleInput.current.focus();
+    }
+  }, []);
+
   return (
-    <div>
-      <div>
+    <div className={s.form_wrapper}>
+      <div className={s.inputs_field}>
         <input
+          ref={titleInput}
+          className={s.input_title}
           placeholder={"title"}
           value={data.title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -40,6 +51,7 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, closeF }) => {
           }
         />
         <input
+          className={s.input_description}
           placeholder={"description"}
           value={data.description}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -47,12 +59,14 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, closeF }) => {
           }
         />
       </div>
-      <Button onClick={() => handler()}>
-        Submit <FontAwesomeIcon icon={faCheck} />
-      </Button>
-      <Button onClick={() => closeF()}>
-        Back <FontAwesomeIcon icon={faRotateLeft} />
-      </Button>
+      <div className={s.buttons}>
+        <Button onClick={() => submitHandler()}>
+          Submit <FontAwesomeIcon icon={faCheck} />
+        </Button>
+        <Button onClick={() => onAbort()}>
+          Back <FontAwesomeIcon icon={faRotateLeft} />
+        </Button>
+      </div>
     </div>
   );
 };

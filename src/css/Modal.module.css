@@ -37,3 +37,11 @@
     background-color: #fff;
     color: black;
 }
+
+.modalTitle {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}

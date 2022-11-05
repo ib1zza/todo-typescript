@@ -6,6 +6,8 @@ import { deleteTodo } from "../store/reducers/TodoCompletedSlice";
 import { TodoCompleted } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
+import { faInfo } from "@fortawesome/free-solid-svg-icons";
+import MouseOver from "../UI/MouseOver";
 
 interface TodoItemCompletedProps {
   todo: TodoCompleted;
@@ -33,23 +35,29 @@ const TodoItemCompleted: React.FC<TodoItemCompletedProps> = ({ todo }) => {
 
   return (
     <div className={wrapperClasses}>
-      <div className={s.todoDescription}>
+      <div className={s.todo_block__description}>
         <div>
           <h2>{todo.title}</h2>
           <p>{todo.description || null}</p>
         </div>
       </div>
-      <span className={s.timeBlock}>
-        {todo.dateOfCreation.slice(5, 10) +
+      <MouseOver
+        text={
+          "Date of creation: " +
+          todo.dateOfCreation.slice(0, 10) +
           " " +
-          todo.dateOfCreation.slice(11, 19)}
-      </span>
-      <span className={s.timeBlock}>
-        {todo.dateOfCompletion.slice(5, 10) +
+          todo.dateOfCreation.slice(11, 19) +
+          "\n" +
+          "Date of completion: " +
+          todo.dateOfCompletion.slice(5, 10) +
           " " +
-          todo.dateOfCompletion.slice(11, 19)}
-      </span>
-
+          todo.dateOfCompletion.slice(11, 19)
+        }
+      >
+        <Button>
+          <FontAwesomeIcon icon={faInfo} />
+        </Button>
+      </MouseOver>
       <Button onClick={() => dispatch(deleteTodo(todo.id))}>
         <FontAwesomeIcon icon={faXmark} />
       </Button>
