@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import s from "../css/Navigation.module.css";
+import s from "../css/Navigation.module.scss";
 import React from "react";
 
 const setStyles = ({ isActive }: { isActive: any }) => {

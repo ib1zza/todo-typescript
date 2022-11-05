@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../css/Select.module.css";
+import s from "../css/Select.module.scss";
 interface SelectProps {
   children?: React.ReactNode;
   params?: any[];

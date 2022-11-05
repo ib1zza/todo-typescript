@@ -3,7 +3,7 @@ import { useAppDispatch } from "../hooks/hooks";
 import { createTodo, filterTodo } from "../store/reducers/TodoSlice";
 import Button from "../UI/Button";
 
-import s from "../css/CreateTaskForm.module.css";
+import s from "../css/CreateTaskForm.module.scss";
 import Select from "../UI/Select";
 
 interface CreateTaskFormProps {

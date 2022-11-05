@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch } from "../hooks/hooks";
-import s from "../css/TodoItem.module.css";
+import s from "../css/TodoItem.module.scss";
 import Button from "../UI/Button";
 import { deleteTodo } from "../store/reducers/TodoCompletedSlice";
 import { TodoCompleted } from "../types";

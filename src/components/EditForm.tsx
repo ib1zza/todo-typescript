@@ -6,7 +6,7 @@ import { Todo } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
-import s from "../css/EditForm.module.css";
+import s from "../css/EditForm.module.scss";
 
 interface EditFormProps {
   prevTodo: Todo;

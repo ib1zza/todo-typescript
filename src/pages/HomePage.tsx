@@ -4,7 +4,7 @@ import CreateTaskForm from "../components/CreateTaskForm";
 import Modal from "../UI/Modal";
 import Button from "../UI/Button";
 import Wrapper from "../UI/Wrapper";
-import s from "../css/HomePage.module.css";
+import s from "../css/HomePage.module.scss";
 import SortSelect from "../components/SortSelect";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

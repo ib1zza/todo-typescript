@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import s from "../css/MouseOver.module.css";
+import s from "../css/MouseOver.module.scss";
 import Button from "./Button";
 
 interface MouseOverProps {

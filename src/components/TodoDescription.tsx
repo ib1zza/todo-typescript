@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../css/TodoDescription.module.css";
+import s from "../css/TodoDescription.module.scss";
 
 import { Todo, TodoCompleted } from "../types";
 

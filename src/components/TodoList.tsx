@@ -1,6 +1,6 @@
 import * as React from "react";
 import TodoItem from "./TodoItem";
-import s from "../css/TodoList.module.css";
+import s from "../css/TodoList.module.scss";
 import { Todo, TodoCompleted } from "../types";
 import TodoItemCompleted from "./TodoItemCompleted";
 
