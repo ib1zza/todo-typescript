@@ -1,0 +1,28 @@
+.inputs_field {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.form_wrapper {
+    width: calc(70% - 65px);
+    display: flex;
+    flex-direction: column;
+}
+
+.input_description {
+    font-size: 14px;
+}
+
+.input_title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    margin-top: 20px;
+}
+
+.buttons>:not(:last-child) {
+    margin-right: 10px;
+}

@@ -41,31 +41,31 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       break;
   }
 
+  const handleCompleteTodo = () => {
+    dispatch(
+      addTodo({
+        ...todo,
+        dateOfCompletion: new Date(Date.now()).toISOString(),
+      })
+    );
+    dispatch(completeTodo(todo.id));
+  };
+
   return (
     <div className={wrapperClasses}>
       <div className={s.todo_block__description}>
-        <>
-          <button
-            disabled={editMode}
-            className={s.completeButton}
-            onClick={() => {
-              dispatch(
-                addTodo({
-                  ...todo,
-                  dateOfCompletion: new Date(Date.now()).toISOString(),
-                })
-              );
-              dispatch(completeTodo(todo.id));
-            }}
-          >
-            <FontAwesomeIcon icon={faCircleCheck} />
-          </button>
-          {editMode ? (
-            <EditForm prevTodo={todo} onAbort={() => setEditMode(false)} />
-          ) : (
-            <TodoDescription todo={todo} />
-          )}
-        </>
+        <button
+          disabled={editMode}
+          className={s.completeButton}
+          onClick={handleCompleteTodo}
+        >
+          <FontAwesomeIcon icon={faCircleCheck} />
+        </button>
+        {editMode ? (
+          <EditForm prevTodo={todo} onAbort={() => setEditMode(false)} />
+        ) : (
+          <TodoDescription todo={todo} />
+        )}
       </div>
       <div className={s.buttons}>
         <Button onClick={() => setEditMode((editMode) => !editMode)}>
