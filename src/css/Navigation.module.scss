@@ -1,9 +1,11 @@
+@import "vars";
+
 .navigation {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 50px; 
-  background-color: rgb(65, 65, 65);
+  background-color: $headerColor;
 }
 
 .navigation>:not(:last-child) {
@@ -11,10 +13,9 @@
 }
 
 .link {
-  color: white;
+  color: $navLinkColor;
 }
 
 .link_active {
-  color: red;
-
+  color: $navLinkColorActive;
 }

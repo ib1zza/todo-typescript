@@ -3,12 +3,15 @@
 }
 
 .block:hover .block_active{
-    visibility: visible;
+    //visibility: visible;
     opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.3s;
 }
 
 .block_active {
-    visibility: hidden;
+    //visibility: hidden;
+    pointer-events: none;
     opacity: 0;
     width: 240px;
     font-size: 12px;
@@ -19,8 +22,8 @@
     padding: 5px;
     position: absolute;
     z-index: 1;
-    bottom: 0%;
-    left: 50%;
-    margin-left: -100px;
+    bottom: 80%;
+    left: -110px;
+    //margin-left: -100px;
     transition: opacity 0.3s;
 }

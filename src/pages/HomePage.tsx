@@ -39,13 +39,14 @@ const HomePage: React.FC = () => {
       <Wrapper>
         <div className={s.todoBlock}>
           <TodoList todos={todosFiltered} />
-
-          <Button
-            style={{ borderRadius: "50%" }}
-            onClick={() => setModal((modal) => !modal)}
-          >
-            <FontAwesomeIcon icon={faPlus} fontSize={"30px"} />
-          </Button>
+        </div>
+        <div className={s.todoFilters}>
+          <SearchBar
+            value={searchQuery}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchQuery(e.target.value)
+            }
+          />
           <SortSelect
             sort={sort}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -57,13 +58,15 @@ const HomePage: React.FC = () => {
             <option value={"dateOfCreation_reverse"}>by date rev</option>
             <option value={"priority"}>priority</option>
           </SortSelect>
+          <div>
+            <Button
+              style={{ borderRadius: "50%" }}
+              onClick={() => setModal((modal) => !modal)}
+            >
+              <FontAwesomeIcon icon={faPlus} fontSize={"30px"} />
+            </Button>
+          </div>
         </div>
-        <SearchBar
-          value={searchQuery}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearchQuery(e.target.value)
-          }
-        />
       </Wrapper>
 
       {modal ? (

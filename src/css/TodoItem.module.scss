@@ -1,9 +1,11 @@
+@import "vars";
+
 .todoContainer {
   display: flex;
   align-items: start;
   justify-content: space-between;
-  border: 2px solid gray;
-  border-radius: 10px;
+  border: 2px solid $bgDark;
+  border-radius: $borderRadius;
   padding: 10px;
 }
 
@@ -28,7 +30,7 @@
   height: 50px;
   margin-right: 15px;
   font-size: 40px;
-  color: green;
+  color: $completeColor;
   background-color: transparent;
 }
 
@@ -39,22 +41,20 @@
   margin-right: 10px;
 }
 
-.p0 {
-  border-color: gray;
-}
 .p1 {
-  border-color: red;
+  border-color: $priority1;
 }
 
 .p2 {
-  border-color: orange;
+  border-color: $priority2;
 }
 
 .p3 {
-  border-color: green;
+  border-color: $priority3;
 }
 
 .p4 {
-  border-color: gray;
+  border-color: $priority4;
 }
+
 

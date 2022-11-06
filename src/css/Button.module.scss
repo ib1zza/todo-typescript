@@ -1,8 +1,10 @@
+@import "vars";
+
 .button {
     padding: 10px;
-    background-color: #606060;
-    color: white;
-    border-radius: 10px;
+    background-color: $bgDark;
+    color: $textLight;
+    border-radius: $borderRadius;
     border: none;
     font-size: 14px;
 }

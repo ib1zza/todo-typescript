@@ -1,8 +1,10 @@
+@import "vars";
+
 .select {
-    background-color: #e3e3e3;
+    background-color: $bgAccent;
     border-radius: 10px;
     padding: 5px 10px;
-    border: 1px solid black;
+    border: 1px solid $bgDark;
     cursor: pointer;
 }
 
@@ -17,5 +19,5 @@
 }
 
 .select:active, .select:focus {
-    background-color: #9f9f9f;
+    //background-color: $bgAccent;
 }
