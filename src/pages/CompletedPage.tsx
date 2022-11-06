@@ -6,6 +6,7 @@ import SearchBar from "../UI/SearchBar";
 import { Todo } from "../types";
 import SortSelect from "../components/SortSelect";
 import { filterTodo } from "../store/reducers/TodoCompletedSlice";
+import s from "../css/CompletedPage.module.scss";
 
 const CompletedPage = () => {
   const dispatch = useAppDispatch();
@@ -33,33 +34,36 @@ const CompletedPage = () => {
   return (
     <div>
       <Wrapper>
-        <TodoList todos={todosFiltered} />
+        <div className={s.todoBlock}>
+          <TodoList todos={todosFiltered} />
+        </div>
 
-        <SearchBar
-          value={searchQuery}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearchQuery(e.target.value)
-          }
-        />
+        <div className={s.todoFilters}>
+          <SearchBar
+            value={searchQuery}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchQuery(e.target.value)
+            }
+          />
 
-        <SortSelect
-          sort={sort}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            dispatch(filterTodo(e.target.value));
-          }}
-        >
-          <option value={"title"}>by title</option>
-          <option value={"dateOfCreation"}>by date</option>
-          <option value={"dateOfCreation_reverse"}>by date rev</option>
+          <SortSelect
+            sort={sort}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              dispatch(filterTodo(e.target.value));
+            }}
+          >
+            <option value={"title"}>by title</option>
+            <option value={"dateOfCreation"}>by date</option>
+            <option value={"dateOfCreation_reverse"}>by date rev</option>
 
-          <option value={"dateOfCompletion"}>by date of completion </option>
-          <option value={"dateOfCompletion_reverse"}>
-            by date of completion rev
-          </option>
-          <option value={"priority"}>priority</option>
-        </SortSelect>
+            <option value={"dateOfCompletion"}>by date of completion </option>
+            <option value={"dateOfCompletion_reverse"}>
+              by date of completion rev
+            </option>
+            <option value={"priority"}>priority</option>
+          </SortSelect>
+        </div>
       </Wrapper>
-      CompletedPage
     </div>
   );
 };
