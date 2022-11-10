@@ -69,7 +69,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       </div>
       <div className={s.buttons}>
         <Button onClick={() => setEditMode((editMode) => !editMode)}>
-          Edit <FontAwesomeIcon icon={faPenToSquare} />
+          <div className={s.buttonEdit}>Edit</div>
+          <FontAwesomeIcon icon={faPenToSquare} />
         </Button>
         <MouseOver
           text={

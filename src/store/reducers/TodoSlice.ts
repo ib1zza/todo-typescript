@@ -30,6 +30,21 @@ const initialState: TodoState = {
       dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
       priority: 2,
     },
+    {
+      id: "3",
+      title: "do all homework tasks",
+      description: "zxzxc2",
+      dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+      priority: 3,
+    },
+    {
+      id: "4",
+      title: "do all homework tasks",
+      description:
+        "do all homework tasks do all homework tasks do all homework tasks",
+      dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+      priority: 1,
+    },
   ],
   completedList: [],
   currentSort: "title",

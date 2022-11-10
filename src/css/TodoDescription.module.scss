@@ -22,7 +22,7 @@
     content: ''; /* Выводим элемент */
     position: absolute; /* Абсолютное позиционирование */
     right: 0; top: 0; /* Положение элемента */
-    width: 80px; /* Ширина градиента*/
+    width: 30px; /* Ширина градиента*/
     height: 100%; /* Высота родителя */
     /* Градиент */
     background: -moz-linear-gradient(left, #FFFFFF33, #ffffff 100%);
@@ -40,4 +40,20 @@
     white-space: nowrap; /* Текст не переносится */
     overflow: hidden; /* Обрезаем всё за пределами блока */
     text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+
+
+@media screen and (max-width: 850px) {
+    .buttonEdit {
+        display: none;
+    }
+
+    .todo_title {
+        font-size: 18px;
+    }
+
+    .todo_description {
+        font-size: 12px;
+    }
 }

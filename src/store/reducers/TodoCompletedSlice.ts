@@ -49,7 +49,6 @@ const TodoCompletedSlice = createSlice({
 
     filterTodo: (state, action: PayloadAction<string | undefined>) => {
       if (action.payload) state.currentSort = action.payload;
-      console.log(state.currentSort);
 
       switch (state.currentSort) {
         case "dateOfCreation":

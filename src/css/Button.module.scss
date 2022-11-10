@@ -6,5 +6,11 @@
     color: $textLight;
     border-radius: $borderRadius;
     border: none;
+    display: flex;
+    align-items: center;
     font-size: 14px;
+
+    &>*:not(:last-child) {
+        margin-right: 5px;
+    }
 }

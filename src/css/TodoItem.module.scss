@@ -36,6 +36,7 @@
 
 .buttons {
   display: flex;
+  align-items: center;
 }
 .buttons>:not(:last-child) {
   margin-right: 10px;
@@ -57,4 +58,20 @@
   border-color: $priority4;
 }
 
+.buttonEdit {
+
+}
+
+
+@media screen and (max-width: 850px) {
+  .buttonEdit {
+    display: none;
+  }
+  .completeButton {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+  }
+
+}
 

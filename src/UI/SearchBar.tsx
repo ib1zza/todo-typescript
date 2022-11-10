@@ -13,6 +13,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
     <div className={s.searchBar}>
       <FontAwesomeIcon icon={faMagnifyingGlass} />
       <input
+        placeholder={"Search"}
         className={s.searchBar_input}
         value={value}
         onChange={(e) => onChange(e)}

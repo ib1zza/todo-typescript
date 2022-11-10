@@ -10,21 +10,19 @@ interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
-    <>
-      <div className={s.todolistContainer}>
-        {todos.length ? null : "no todos found"}
-        {todos.map((el) => {
-          if (
-            "dateOfCompletion" in el &&
-            typeof el.dateOfCompletion !== "undefined"
-          ) {
-            return <TodoItemCompleted todo={el as TodoCompleted} key={el.id} />;
-          } else {
-            return <TodoItem todo={el as Todo} key={el.id} />;
-          }
-        })}
-      </div>
-    </>
+    <div className={s.todolistContainer}>
+      {todos.length ? null : <div className={s.errorMsg}>no todos found</div>}
+      {todos.map((el) => {
+        if (
+          "dateOfCompletion" in el &&
+          typeof el.dateOfCompletion !== "undefined"
+        ) {
+          return <TodoItemCompleted todo={el as TodoCompleted} key={el.id} />;
+        } else {
+          return <TodoItem todo={el as Todo} key={el.id} />;
+        }
+      })}
+    </div>
   );
 };
 

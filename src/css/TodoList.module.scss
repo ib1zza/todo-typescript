@@ -1,7 +1,16 @@
+@import "vars";
+
 .todolistContainer {
     width: 100%;
-
+    padding: 0;
     &>*:not(:last-child) {
         margin-bottom: 10px;
     }
+}
+
+.errorMsg {
+    width: 100%;
+    text-align: center;
+    color: $textDark;
+    font-size: 25px;
 }
