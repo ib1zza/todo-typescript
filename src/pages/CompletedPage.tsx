@@ -13,17 +13,17 @@ const CompletedPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const todos = useAppSelector((state) => state.todoCompleted.todos);
 
-  let todosFiltered: Array<Todo> = [...todos].filter((el) => {
-    return (
-      el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      new Date(el.dateOfCreation)
-        .toLocaleDateString()
-        .includes(searchQuery.toLowerCase()) ||
-      new Date(el.dateOfCompletion || 0)
-        .toLocaleDateString()
-        .includes(searchQuery.toLowerCase())
-    );
-  });
+  // let todosFiltered: Array<Todo> = [...todos].filter((el) => {
+  //   return (
+  //     el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     new Date(el.dateOfCreation)
+  //       .toLocaleDateString()
+  //       .includes(searchQuery.toLowerCase()) ||
+  //     new Date(el.dateOfCompletion || 0)
+  //       .toLocaleDateString()
+  //       .includes(searchQuery.toLowerCase())
+  //   );
+  // });
 
   const sort = useAppSelector((state) => state.todoCompleted.currentSort);
 
@@ -34,9 +34,7 @@ const CompletedPage = () => {
   return (
     <div>
       <Wrapper>
-        <div className={s.todoBlock}>
-          <TodoList todos={todosFiltered} />
-        </div>
+        <div className={s.todoBlock}>{/*<TodoList todos={todos} />*/}</div>
 
         <div className={s.todoFilters}>
           <SearchBar

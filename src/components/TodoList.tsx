@@ -17,9 +17,9 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
           "dateOfCompletion" in el &&
           typeof el.dateOfCompletion !== "undefined"
         ) {
-          return <TodoItemCompleted todo={el as TodoCompleted} key={el.id} />;
+          return <TodoItemCompleted todo={el as TodoCompleted} key={el._id} />;
         } else {
-          return <TodoItem todo={el as Todo} key={el.id} />;
+          return <TodoItem todo={el as Todo} key={el._id} />;
         }
       })}
     </div>

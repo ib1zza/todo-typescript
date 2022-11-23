@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
-import { filterTodo } from "../store/reducers/TodoSlice";
+// import { filterTodo } from "../store/reducers/TodoSlice";
 
 const SortSelect = () => {
   const dispatch = useAppDispatch();
   const [sort, setSort] = useState("title");
 
   useEffect(() => {
-    dispatch(filterTodo(sort));
+    // dispatch(filterTodo(sort));
   }, [sort]);
 
   return (

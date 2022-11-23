@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
-import { createTodo, filterTodo } from "../store/reducers/TodoSlice";
+import { createTodo, createTodoFetch } from "../store/reducers/TodoSlice";
 import Button from "../UI/Button";
 
 import s from "../css/CreateTaskForm.module.scss";
@@ -31,11 +31,9 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideModal }) => {
     if (e) e.preventDefault();
     if (state.title.trim()) {
       dispatch(
-        createTodo({
-          id: Date.now().toString(),
+        createTodoFetch({
           title: state.title,
-          description: state.description.trim() ? state.description : undefined,
-          dateOfCreation: new Date().toISOString(),
+          description: state.description.trim() ? state.description : "",
           priority: state.priority === 0 ? 4 : state.priority,
         })
       );
@@ -44,7 +42,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideModal }) => {
         description: "",
         priority: 0,
       });
-      dispatch(filterTodo());
+
       hideModal();
     }
   };

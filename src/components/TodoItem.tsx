@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
 import s from "../css/TodoItem.module.scss";
 import Button from "../UI/Button";
-import { completeTodo, deleteTodo } from "../store/reducers/TodoSlice";
+import {
+  completeTodo,
+  deleteTodo,
+  FetchDeleteTodo,
+} from "../store/reducers/TodoSlice";
 import EditForm from "./EditForm";
 import { Todo } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -45,10 +49,10 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     dispatch(
       addTodo({
         ...todo,
-        dateOfCompletion: new Date(Date.now()).toISOString(),
+        updatedAt: new Date(Date.now()).toISOString(),
       })
     );
-    dispatch(completeTodo(todo.id));
+    dispatch(completeTodo(todo._id));
   };
 
   return (
@@ -75,14 +79,14 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         <MouseOver
           text={
             "Date of creation: " +
-            todo.dateOfCreation.slice(0, 10) +
+            todo.createdAt.slice(0, 10) +
             " " +
-            todo.dateOfCreation.slice(11, 19)
+            todo.createdAt.slice(11, 19)
           }
         >
           <FontAwesomeIcon icon={faInfo} />
         </MouseOver>
-        <Button onClick={() => dispatch(deleteTodo(todo.id))}>
+        <Button onClick={() => dispatch(FetchDeleteTodo(todo._id))}>
           <FontAwesomeIcon icon={faXmark} />
         </Button>
       </div>

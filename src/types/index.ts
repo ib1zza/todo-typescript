@@ -1,11 +1,13 @@
 export type Todo = {
-  id: string;
+  _id: string;
   title: string;
   description?: string;
   priority: number;
-  dateOfCreation: string;
+  createdAt: string;
+  updatedAt?: string;
+  __v?: number;
 };
 
 export type TodoCompleted = Todo & {
-  dateOfCompletion: string;
+  dateOfCompletion?: string;
 };

@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface TodoCompleted {
-  id: string;
-  title: string;
-  description?: string;
-  priority: number;
-  dateOfCreation: string;
-  dateOfCompletion: string;
-}
+import { TodoCompleted } from "../../types";
 
 interface TodoCompletedState {
   todos: Array<TodoCompleted>;
@@ -17,19 +9,19 @@ interface TodoCompletedState {
 const initialState: TodoCompletedState = {
   todos: [
     {
-      id: "100",
+      _id: "100",
       title: "completed task",
       description: "comp1",
       priority: 4,
-      dateOfCreation: new Date("2022-10-31T14:35:45.051Z").toISOString(),
+      createdAt: new Date("2022-10-31T14:35:45.051Z").toISOString(),
       dateOfCompletion: new Date(Date.now()).toISOString(),
     },
     {
-      id: "101",
+      _id: "101",
       title: "completed task 011",
       description: "comp2",
       priority: 1,
-      dateOfCreation: new Date("2022-09-31T14:35:45.051Z").toISOString(),
+      createdAt: new Date("2022-09-31T14:35:45.051Z").toISOString(),
       dateOfCompletion: new Date(Date.now()).toISOString(),
     },
   ],
@@ -41,7 +33,7 @@ const TodoCompletedSlice = createSlice({
   initialState,
   reducers: {
     deleteTodo: (state, action: PayloadAction<string>) => {
-      state.todos = state.todos.filter((el) => el.id !== action.payload);
+      state.todos = state.todos.filter((el) => el._id !== action.payload);
     },
     addTodo: (state, action: PayloadAction<TodoCompleted>) => {
       state.todos.push(action.payload);
@@ -53,26 +45,22 @@ const TodoCompletedSlice = createSlice({
       switch (state.currentSort) {
         case "dateOfCreation":
           state.todos.sort(
-            (a, b) =>
-              Date.parse(b.dateOfCreation) - Date.parse(a.dateOfCreation)
+            (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
           );
           return;
         case "dateOfCreation_reverse":
           state.todos.sort(
-            (a, b) =>
-              Date.parse(a.dateOfCreation) - Date.parse(b.dateOfCreation)
+            (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
           );
           return;
         case "dateOfCompletion":
           state.todos.sort(
-            (a, b) =>
-              Date.parse(b.dateOfCompletion) - Date.parse(a.dateOfCompletion)
+            (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
           );
           return;
         case "dateOfCompletion_reverse":
           state.todos.sort(
-            (a, b) =>
-              Date.parse(a.dateOfCompletion) - Date.parse(b.dateOfCompletion)
+            (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
           );
           return;
         case "title":

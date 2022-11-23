@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../UI/Button";
 import { useAppDispatch } from "../hooks/hooks";
-import { editTodo } from "../store/reducers/TodoSlice";
+import { editTodo, FetchUpdateTodo } from "../store/reducers/TodoSlice";
 import { Todo } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
@@ -23,10 +23,11 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, onAbort }) => {
 
   const submitHandler = (): void => {
     dispatch(
-      editTodo({
-        ...prevTodo,
+      FetchUpdateTodo({
+        id: prevTodo._id,
         title: data.title,
-        description: data.description ? data.description : undefined,
+        description: data.description ? data.description : "",
+        priority: prevTodo.priority,
       })
     );
     onAbort();

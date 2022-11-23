@@ -11,7 +11,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import SearchBar from "../UI/SearchBar";
 import { Todo } from "../types";
-import { filterTodo } from "../store/reducers/TodoSlice";
+import {
+  fetchAllTodos,
+  fetchSortedTodos,
+  setCurrentSort,
+} from "../store/reducers/TodoSlice";
 import Burger from "../UI/Burger";
 
 const HomePage: React.FC = () => {
@@ -21,26 +25,26 @@ const HomePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const todos = useAppSelector((state) => state.todo.list);
 
-  let todosFiltered: Array<Todo> = [...todos].filter((el) => {
-    return (
-      el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      new Date(el.dateOfCreation)
-        .toLocaleDateString()
-        .includes(searchQuery.toLowerCase())
-    );
-  });
+  // let todosFiltered: Array<Todo> = [...todos].filter((el) => {
+  //   return (
+  //     el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //     new Date(el.dateOfCreation)
+  //       .toLocaleDateString()
+  //       .includes(searchQuery.toLowerCase())
+  //   );
+  // });
 
   const sort = useAppSelector((state) => state.todo.currentSort);
 
   useEffect(() => {
-    dispatch(filterTodo(sort));
-  }, []);
+    dispatch(fetchSortedTodos(searchQuery));
+  }, [dispatch, searchQuery]);
 
   return (
     <div>
       <Wrapper>
         <div className={s.todoBlock}>
-          <TodoList todos={todosFiltered} />
+          <TodoList todos={todos} />
         </div>
         <Burger isActive={menu} hideF={() => setMenu(!menu)}>
           <h1 className={s.header}>sort & search</h1>
@@ -53,13 +57,13 @@ const HomePage: React.FC = () => {
           <SortSelect
             sort={sort}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              dispatch(filterTodo(e.target.value));
+              console.log(searchQuery);
+              dispatch(fetchSortedTodos(searchQuery));
             }}
           >
-            <option value={"title"}>by title</option>
-            <option value={"dateOfCreation"}>by date</option>
-            <option value={"dateOfCreation_reverse"}>by date rev</option>
-            <option value={"priority"}>priority</option>
+            <option value={"data"}>by data</option>
+            <option value={"datarev"}>by datarev</option>
+            <option value={"priority "}>by priority </option>
           </SortSelect>
           <div>
             <Button
@@ -80,13 +84,14 @@ const HomePage: React.FC = () => {
           <SortSelect
             sort={sort}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              dispatch(filterTodo(e.target.value));
+              dispatch(setCurrentSort(e.target.value));
+              console.log(e.target.value);
+              dispatch(fetchSortedTodos(e.target.value));
             }}
           >
-            <option value={"title"}>by title</option>
-            <option value={"dateOfCreation"}>by date</option>
-            <option value={"dateOfCreation_reverse"}>by date rev</option>
-            <option value={"priority"}>priority</option>
+            <option value={"data"}>by data</option>
+            <option value={"datarev"}>by datarev</option>
+            <option value={"priority "}>by priority </option>
           </SortSelect>
           <div>
             <Button

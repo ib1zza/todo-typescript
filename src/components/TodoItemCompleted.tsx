@@ -43,19 +43,19 @@ const TodoItemCompleted: React.FC<TodoItemCompletedProps> = ({ todo }) => {
         <MouseOver
           text={
             "Date of creation: " +
-            todo.dateOfCreation.slice(0, 10) +
+            todo.createdAt.slice(0, 10) +
             " " +
-            todo.dateOfCreation.slice(11, 19) +
+            todo.createdAt.slice(11, 19) +
             "\n" +
             "Date of completion: " +
-            todo.dateOfCompletion.slice(5, 10) +
+            todo.createdAt.slice(5, 10) +
             " " +
-            todo.dateOfCompletion.slice(11, 19)
+            todo.createdAt.slice(11, 19)
           }
         >
           <FontAwesomeIcon icon={faInfo} />
         </MouseOver>
-        <Button onClick={() => dispatch(deleteTodo(todo.id))}>
+        <Button onClick={() => dispatch(deleteTodo(todo._id))}>
           <FontAwesomeIcon icon={faXmark} />
         </Button>
       </div>
