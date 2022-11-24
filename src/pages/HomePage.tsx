@@ -23,26 +23,23 @@ const HomePage: React.FC = () => {
   const [modal, setModal] = useState(false);
   const [menu, setMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [renderTodos, setRenderTodos] = useState<Todo[]>([]);
   const todos = useAppSelector((state) => state.todo.list);
-
-  // let todosFiltered: Array<Todo> = [...todos].filter((el) => {
-  //   return (
-  //     el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     new Date(el.dateOfCreation)
-  //       .toLocaleDateString()
-  //       .includes(searchQuery.toLowerCase())
-  //   );
-  // });
-
   const sort = useAppSelector((state) => state.todo.currentSort);
+  // const loading = useAppSelector((state) => state.todo.loading);
+
+  const { loading, error } = useAppSelector((state) => state.todo);
+
+  console.log(todos + " " + sort);
 
   useEffect(() => {
-    dispatch(fetchSortedTodos(searchQuery));
-  }, [dispatch, searchQuery]);
+    dispatch(fetchSortedTodos(sort));
+  }, [dispatch, sort, todos.length]);
 
   return (
     <div>
       <Wrapper>
+        {error && <div>{error}</div>}
         <div className={s.todoBlock}>
           <TodoList todos={todos} />
         </div>

@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { PORT } from "../../BackConfig";
 import { Todo } from "../../types/index";
@@ -73,14 +78,15 @@ export const fetchSortedTodos = createAsyncThunk<
   string,
   { rejectValue: string }
 >("todo/fetchSortedTodos", async function (query, { rejectWithValue }) {
+  console.log(query);
   const response = await axios
-    .get<Todo[]>(`http://localhost:${PORT}/all?sort`, {
+    .get<Todo[]>(`http://localhost:${PORT}/all?sort=${query}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      params: {
-        query: query,
-      },
+      // params: {
+      //   query: query,
+      // },
     })
     .then((res) => res.data)
     .catch(function (error: AxiosError) {
@@ -114,23 +120,30 @@ export const createTodoFetch = createAsyncThunk<
         console.log(error.toJSON());
         return rejectWithValue(error.message);
       });
+
     return response;
   }
 );
 
 export const FetchDeleteTodo = createAsyncThunk<
-  Todo,
+  string,
   string,
   { rejectValue: string }
 >("todo/FetchDeleteTodo", async function (id, { rejectWithValue }) {
   const response = await axios
-    .delete<Todo>(`http://localhost:${PORT}/delete/${id}`)
+    .delete<string>(`http://localhost:${PORT}/delete/${id}`)
     .then((res) => res.data)
+    .then((data) => {
+      // @ts-ignore
+      if (data.status === 200) {
+        return id;
+      }
+    })
     .catch(function (error: AxiosError) {
       console.log(error.toJSON());
       return rejectWithValue(error.message);
     });
-  return response;
+  return id;
 });
 
 interface FetchUpdateTodoProps {
@@ -229,6 +242,7 @@ const TodoSlice = createSlice({
       })
       .addCase(fetchSortedTodos.fulfilled, (state, action) => {
         state.list = action.payload;
+        console.log("todosFetched");
         state.loading = false;
       })
       .addCase(createTodoFetch.pending, (state) => {
@@ -236,6 +250,7 @@ const TodoSlice = createSlice({
         state.error = null;
       })
       .addCase(createTodoFetch.fulfilled, (state, action) => {
+        state.list.push(action.payload);
         state.loading = false;
       })
       .addCase(FetchDeleteTodo.pending, (state) => {
@@ -243,6 +258,7 @@ const TodoSlice = createSlice({
         state.error = null;
       })
       .addCase(FetchDeleteTodo.fulfilled, (state, action) => {
+        state.list = state.list.filter((el) => el._id !== action.payload);
         state.loading = false;
       })
       .addCase(FetchUpdateTodo.pending, (state) => {
@@ -250,10 +266,21 @@ const TodoSlice = createSlice({
         state.error = null;
       })
       .addCase(FetchUpdateTodo.fulfilled, (state, action) => {
+        const ind = state.list.findIndex((el) => el._id === action.payload._id);
+        state.list[ind] = action.payload;
+        state.loading = false;
+      })
+      .addMatcher(isError, (state, action: PayloadAction<string>) => {
+        console.log("Error:" + action.payload);
+        state.error = action.payload;
         state.loading = false;
       });
   },
 });
+
+const isError = (action: AnyAction) => {
+  return action.type.endsWith("rejected");
+};
 
 export const {
   createTodo,

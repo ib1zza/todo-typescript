@@ -14,6 +14,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideModal }) => {
   const dispatch = useAppDispatch();
   const titleRef = useRef<HTMLInputElement>(null);
 
+  //focus on input
   useEffect(() => {
     if (titleRef.current !== null) {
       titleRef.current.focus();
