@@ -23,10 +23,8 @@ const HomePage: React.FC = () => {
   const [modal, setModal] = useState(false);
   const [menu, setMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [renderTodos, setRenderTodos] = useState<Todo[]>([]);
   const todos = useAppSelector((state) => state.todo.list);
   const sort = useAppSelector((state) => state.todo.currentSort);
-  // const loading = useAppSelector((state) => state.todo.loading);
 
   const { loading, error } = useAppSelector((state) => state.todo);
 
@@ -54,13 +52,15 @@ const HomePage: React.FC = () => {
           <SortSelect
             sort={sort}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              console.log(searchQuery);
-              dispatch(fetchSortedTodos(searchQuery));
+              dispatch(setCurrentSort(e.target.value));
+              console.log(e.target.value);
+              dispatch(fetchSortedTodos(e.target.value));
             }}
           >
-            <option value={"data"}>by data</option>
-            <option value={"datarev"}>by datarev</option>
-            <option value={"priority "}>by priority </option>
+            <option value={"date"}>by data</option>
+            <option value={"daterev"}>by datarev</option>
+            <option value={"priority"}>by priority </option>
+            <option value={"title"}>by title </option>
           </SortSelect>
           <div>
             <Button
@@ -86,9 +86,10 @@ const HomePage: React.FC = () => {
               dispatch(fetchSortedTodos(e.target.value));
             }}
           >
-            <option value={"data"}>by data</option>
-            <option value={"datarev"}>by datarev</option>
-            <option value={"priority "}>by priority </option>
+            <option value={"date"}>by date</option>
+            <option value={"daterev"}>by datarev</option>
+            <option value={"priority"}>by priority </option>
+            <option value={"title"}>by title </option>
           </SortSelect>
           <div>
             <Button
