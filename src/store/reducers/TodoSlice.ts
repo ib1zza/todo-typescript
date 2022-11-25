@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { PORT } from "../../BackConfig";
-import { Todo } from "../../types/index";
+import { Todo } from "../../types";
 
 type TodoState = {
   list: Array<Todo>;

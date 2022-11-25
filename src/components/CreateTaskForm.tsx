@@ -48,7 +48,11 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ hideModal }) => {
     }
   };
   return (
-    <form action="" onSubmit={check} className={s.form}>
+    <form
+      action="src/components/CreateTaskForm"
+      onSubmit={check}
+      className={s.form}
+    >
       <input
         style={{ fontWeight: "bold" }}
         type="text"
