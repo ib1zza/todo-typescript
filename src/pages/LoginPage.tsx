@@ -4,6 +4,7 @@ import Button from "../UI/Button";
 import s from "../css/LoginPage.module.scss";
 import { fetchLogin, logOut } from "../store/reducers/LoginSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { clearState } from "../store/reducers/TodoSlice";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
@@ -32,6 +33,7 @@ const LoginPage = () => {
 
   const logOutHandler = () => {
     dispatch(logOut());
+    dispatch(clearState());
   };
 
   return (

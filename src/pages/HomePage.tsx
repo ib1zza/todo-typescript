@@ -28,16 +28,18 @@ const HomePage: React.FC = () => {
 
   const { loading, error } = useAppSelector((state) => state.todo);
 
-  console.log(todos + " " + sort);
+  const isLoggedIn = useAppSelector((state) => state.login.isLogin);
+
+  console.log(todos.length + " " + sort);
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     dispatch(fetchSortedTodos(sort));
-  }, [dispatch, sort, todos.length]);
+  }, [dispatch, sort, todos.length, isLoggedIn]);
 
   return (
     <div>
       <Wrapper>
-        {error && <div>{error}</div>}
         <div className={s.todoBlock}>
           <TodoList todos={todos} />
         </div>

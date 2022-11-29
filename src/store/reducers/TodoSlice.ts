@@ -17,37 +17,7 @@ type TodoState = {
 };
 
 const initialState: TodoState = {
-  list: [
-    {
-      _id: "1",
-      title: "asd",
-      description: "asdasd1",
-      createdAt: new Date().toISOString(),
-      priority: 4,
-    },
-    {
-      _id: "2",
-      title: "zxc",
-      description: "zxzxc2",
-      createdAt: new Date("2022-10-31T14:35:45.051Z").toISOString(),
-      priority: 2,
-    },
-    {
-      _id: "3",
-      title: "do all homework tasks",
-      description: "zxzxc2",
-      createdAt: new Date("2022-10-31T14:35:45.051Z").toISOString(),
-      priority: 3,
-    },
-    {
-      _id: "4",
-      title: "do all homework tasks",
-      description:
-        "do all homework tasks do all homework tasks do all homework tasks",
-      createdAt: new Date("2022-10-31T14:35:45.051Z").toISOString(),
-      priority: 1,
-    },
-  ],
+  list: [],
   completedList: [],
   currentSort: "title",
   loading: false,
@@ -222,6 +192,9 @@ const TodoSlice = createSlice({
     setCurrentSort: (state, action: PayloadAction<string>) => {
       state.currentSort = action.payload;
     },
+    clearState: (state) => {
+      state.list = [];
+    },
     // filterTodo: (state, action: PayloadAction<string | undefined>) => {
     //   if (action.payload) state.currentSort = action.payload;
     //
@@ -311,5 +284,6 @@ export const {
   completeTodo,
   editTodo,
   setCurrentSort,
+  clearState,
 } = TodoSlice.actions;
 export default TodoSlice.reducer;
