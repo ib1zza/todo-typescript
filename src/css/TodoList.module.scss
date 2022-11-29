@@ -3,9 +3,25 @@
 .todolistContainer {
     width: 100%;
     padding: 0;
-    &>*:not(:last-child) {
-        margin-bottom: 10px;
-    }
+
+    position: relative;
+}
+
+
+.todolistContainerBlur {
+    position: absolute;
+    width: 100%;
+    min-height: 50px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-out;
 }
 
 .errorMsg {

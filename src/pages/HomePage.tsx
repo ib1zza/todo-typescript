@@ -23,25 +23,13 @@ const HomePage: React.FC = () => {
   const [modal, setModal] = useState(false);
   const [menu, setMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const todos = useAppSelector((state) => state.todo.list);
   const sort = useAppSelector((state) => state.todo.currentSort);
-
-  const { loading, error } = useAppSelector((state) => state.todo);
-
-  const isLoggedIn = useAppSelector((state) => state.login.isLogin);
-
-  console.log(todos.length + " " + sort);
-
-  useEffect(() => {
-    if (!isLoggedIn) return;
-    dispatch(fetchSortedTodos(sort));
-  }, [dispatch, sort, todos.length, isLoggedIn]);
 
   return (
     <div>
       <Wrapper>
         <div className={s.todoBlock}>
-          <TodoList todos={todos} />
+          <TodoList searchQuery={searchQuery} />
         </div>
         <Burger isActive={menu} hideF={() => setMenu(!menu)}>
           <h1 className={s.header}>sort & search</h1>

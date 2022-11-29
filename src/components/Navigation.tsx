@@ -13,9 +13,6 @@ const Navigation: React.FC = () => {
       <NavLink className={setStyles} to={AppRoutes.todos}>
         Home
       </NavLink>
-      <NavLink className={setStyles} to={AppRoutes.completed}>
-        Completed
-      </NavLink>
       <NavLink className={setStyles} to={AppRoutes.login}>
         Login
       </NavLink>
