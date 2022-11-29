@@ -12,10 +12,14 @@ import {
 import storage from "redux-persist/lib/storage";
 import TodoSlice from "./reducers/TodoSlice";
 import TodoCompletedSlice from "./reducers/TodoCompletedSlice";
+import LoginSlice from "./reducers/LoginSlice";
+import RegistrationSlice from "./reducers/RegistrationSlice";
 
 const rootReducer = combineReducers({
   todo: TodoSlice,
   todoCompleted: TodoCompletedSlice,
+  login: LoginSlice,
+  register: RegistrationSlice,
 });
 
 const persistConfig = {
