@@ -15,7 +15,6 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <Routes>
           <Route path="/home" element={<HomePage />} />
-
           <Route path="/completed" element={<CompletedPage />} />
         </Routes>
       </PersistGate>
