@@ -60,9 +60,10 @@ export const fetchAllTodos = createAsyncThunk<
   { rejectValue: string }
 >("todo/fetchAllTodos", async function (_, { rejectWithValue }) {
   const response = await axios
-    .get<Todo[]>(`http://localhost:${PORT}/all`, {
+    .get<Todo[]>(`http://localhost:${PORT}/getnotes`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
     .then((res) => res.data)
@@ -80,9 +81,10 @@ export const fetchSortedTodos = createAsyncThunk<
 >("todo/fetchSortedTodos", async function (query, { rejectWithValue }) {
   console.log(query);
   const response = await axios
-    .get<Todo[]>(`http://localhost:${PORT}/all?sort=${query}`, {
+    .get<Todo[]>(`http://localhost:${PORT}/getnotes?sort=${query}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       // params: {
       //   query: query,

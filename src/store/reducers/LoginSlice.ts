@@ -6,7 +6,6 @@ import {
 } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { PORT } from "../../BackConfig";
-import { Todo } from "../../types";
 
 interface LoginState {
   isLogin: boolean;
@@ -17,9 +16,9 @@ interface LoginState {
 }
 
 const initialState: LoginState = {
-  isLogin: false,
-  email: "",
-  token: "",
+  isLogin: !!localStorage.getItem("token"),
+  email: localStorage.getItem("email") || "",
+  token: localStorage.getItem("token") || "",
   loading: false,
   error: null,
 };
@@ -62,6 +61,8 @@ const LoginSlice = createSlice({
       state.isLogin = false;
       state.email = "";
       state.token = "";
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
     },
   },
   extraReducers: (builder) => {
@@ -78,6 +79,8 @@ const LoginSlice = createSlice({
         console.log("login successful");
         state.loading = false;
         state.isLogin = true;
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("email", action.payload.email);
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         console.log("Login Error:" + action.payload);
