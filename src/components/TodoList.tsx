@@ -45,7 +45,7 @@ const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       {list.length
         ? null
         : isLogin && <div className={s.errorMsg}>no todos found</div>}
-      {!isLogin && <div>You must be logged in to watch that page!</div>}
+
       {isLogin &&
         searchedMas.map((el) => {
           // if (

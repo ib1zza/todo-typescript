@@ -38,35 +38,46 @@ const LoginPage = () => {
 
   return (
     <Wrapper>
-      <div>
+      <div className={s.loginWrapper}>
         <h1>Login</h1>
         {!isLogin && (
           <form action="" onSubmit={func}>
-            <input
-              className={s.input}
-              type={"email"}
-              placeholder={"email"}
-              value={loginData.email}
-              onChange={(e) =>
-                setLoginData({ ...loginData, email: e.target.value })
-              }
-            />
-            <input
-              className={s.input}
-              type={"password"}
-              placeholder={"password"}
-              value={loginData.password}
-              onChange={(e) =>
-                setLoginData({ ...loginData, password: e.target.value })
-              }
-            />
+            <div>
+              <span>Email:</span>
+              <input
+                className={s.input}
+                type={"email"}
+                placeholder={"example@mail.com"}
+                value={loginData.email}
+                onChange={(e) =>
+                  setLoginData({ ...loginData, email: e.target.value })
+                }
+              />
+            </div>
+
+            <div>
+              <span>Password:</span>
+              <input
+                className={s.input}
+                type={"password"}
+                placeholder={"*************"}
+                value={loginData.password}
+                onChange={(e) =>
+                  setLoginData({ ...loginData, password: e.target.value })
+                }
+              />
+            </div>
+
             <Button>Login</Button>
           </form>
         )}
-        {loading && <h1>Loading///</h1>}
-        {/*<div>response: {email || error}</div>*/}
-        <h1>{isLogin ? "logged in " + email : "not logged in"}</h1>
-        <button onClick={logOutHandler}>Log out</button>
+        {loading && <h1>Loading...</h1>}
+        {isLogin && (
+          <div>
+            <h2>You are currently logged in at {email.toString()}</h2>
+            <Button onClick={logOutHandler}>Log out</Button>
+          </div>
+        )}
       </div>
     </Wrapper>
   );

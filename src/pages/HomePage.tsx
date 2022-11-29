@@ -24,6 +24,15 @@ const HomePage: React.FC = () => {
   const [menu, setMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const sort = useAppSelector((state) => state.todo.currentSort);
+  const isLogin = useAppSelector((state) => state.login.isLogin);
+
+  if (!isLogin) {
+    return (
+      <Wrapper>
+        <div>You must be logged in to watch that page!</div>
+      </Wrapper>
+    );
+  }
 
   return (
     <div>
