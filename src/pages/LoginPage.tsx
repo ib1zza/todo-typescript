@@ -63,7 +63,7 @@ const LoginPage = () => {
         )}
         {loading && <h1>Loading///</h1>}
         {/*<div>response: {email || error}</div>*/}
-        <h1>{isLogin ? "logged in" : "not logged in"}</h1>
+        <h1>{isLogin ? "logged in " + email : "not logged in"}</h1>
         <button onClick={logOutHandler}>Log out </button>
       </div>
     </Wrapper>

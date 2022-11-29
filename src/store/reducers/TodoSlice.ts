@@ -92,6 +92,7 @@ export const fetchSortedTodos = createAsyncThunk<
       console.log(error.toJSON());
       return rejectWithValue(error.message);
     });
+  console.log("fetchSortedTodos");
   return response;
 });
 
@@ -108,18 +109,22 @@ export const createTodoFetch = createAsyncThunk<
 >(
   "todo/createTodoFetch",
   async function ({ title, description, priority }, { rejectWithValue }) {
+    console.log(`Bearer ${localStorage.getItem("token")}`);
+
     const response = await axios
-      .post<Todo>(`http://localhost:${PORT}/create`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: {
+      .post<Todo>(
+        `http://localhost:${PORT}/create`,
+        {
           title: title,
           description: description,
           priority: priority.toString(),
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => res.data)
       .catch(function (error: AxiosError) {
         console.log(error.toJSON());
@@ -160,7 +165,7 @@ interface FetchUpdateTodoProps {
   id: string;
   title: string;
   description: string;
-  priority: number;
+  priority: string;
 }
 
 export const FetchUpdateTodo = createAsyncThunk<
@@ -172,17 +177,19 @@ export const FetchUpdateTodo = createAsyncThunk<
   async function ({ id, title, description, priority }, { rejectWithValue }) {
     console.log(id, title, description, priority);
     const response = await axios
-      .put<Todo>(`http://localhost:${PORT}/update/${id}`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: {
+      .put<Todo>(
+        `http://localhost:${PORT}/update/${id}`,
+        {
           title: title,
           description: description,
-          priority: priority.toString(),
+          priority: priority,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => res.data)
       .catch(function (error: AxiosError) {
         console.log(error.toJSON());

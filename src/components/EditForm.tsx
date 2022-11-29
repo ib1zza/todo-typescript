@@ -27,7 +27,7 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, onAbort }) => {
         id: prevTodo._id,
         title: data.title,
         description: data.description ? data.description : "",
-        priority: prevTodo.priority,
+        priority: prevTodo.priority.toString(),
       })
     );
     onAbort();
