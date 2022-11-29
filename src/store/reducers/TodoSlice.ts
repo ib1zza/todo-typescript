@@ -86,9 +86,6 @@ export const fetchSortedTodos = createAsyncThunk<
         "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-      // params: {
-      //   query: query,
-      // },
     })
     .then((res) => res.data)
     .catch(function (error: AxiosError) {
@@ -113,9 +110,15 @@ export const createTodoFetch = createAsyncThunk<
   async function ({ title, description, priority }, { rejectWithValue }) {
     const response = await axios
       .post<Todo>(`http://localhost:${PORT}/create`, {
-        title: title,
-        description: description,
-        priority: priority.toString(),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: {
+          title: title,
+          description: description,
+          priority: priority.toString(),
+        },
       })
       .then((res) => res.data)
       .catch(function (error: AxiosError) {
@@ -133,7 +136,12 @@ export const FetchDeleteTodo = createAsyncThunk<
   { rejectValue: string }
 >("todo/FetchDeleteTodo", async function (id, { rejectWithValue }) {
   const response = await axios
-    .delete<string>(`http://localhost:${PORT}/delete/${id}`)
+    .delete<string>(`http://localhost:${PORT}/delete/${id}`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
     .then((res) => res.data)
     .then((data) => {
       // @ts-ignore
@@ -165,9 +173,15 @@ export const FetchUpdateTodo = createAsyncThunk<
     console.log(id, title, description, priority);
     const response = await axios
       .put<Todo>(`http://localhost:${PORT}/update/${id}`, {
-        title: title,
-        description: description,
-        priority: priority.toString(),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: {
+          title: title,
+          description: description,
+          priority: priority.toString(),
+        },
       })
       .then((res) => res.data)
       .catch(function (error: AxiosError) {
