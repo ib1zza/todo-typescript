@@ -73,7 +73,7 @@ const LoginPage = () => {
         )}
         {loading && <h1>Loading...</h1>}
         {isLogin && (
-          <div>
+          <div className={s.loginInfo}>
             <h2>You are currently logged in at {email.toString()}</h2>
             <Button onClick={logOutHandler}>Log out</Button>
           </div>
