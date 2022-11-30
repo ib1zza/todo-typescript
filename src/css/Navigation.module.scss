@@ -1,21 +1,119 @@
 @import "vars";
 
-.navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px; 
+.container {
+  width: 100%;
+
+  height: 50px;
   background-color: $headerColor;
+
+
 }
 
-.navigation>:not(:last-child) {
+
+.navigation {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+
+    font-weight: bold;
+    &.link {
+      color: #cbcbcb;
+    }
+    &.link:hover {
+      text-decoration: underline;
+      color: #ffffff;
+    }
+
+    &.link_active {
+      color: #ffffff;
+      &:hover {
+
+      }
+    }
+  }
+
+  .pagesBlock {
+    display: flex;
+
+    & > *:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+}
+
+
+.loginBlock {
+  display: flex;
+  align-items: center;
+  color: black;
+  & > *:not(:last-child) {
+    margin-right: 15px;
+  }
+
+
+  & > * {
+    padding: 7px 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid #565656;
+    border-width: 2px 2px 8px 2px;
+    transition: all 0.3s ease;
+    color: black;
+  }
+
+  & > *:hover {
+    padding: 7px 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: solid #565656;
+    border-width: 2px 2px 4px 2px;
+    transform: translateY(3px);
+    transition: all 0.3s ease;
+  }
+}
+
+.navigation > :not(:last-child) {
   margin-right: 15px;
 }
 
-.link {
-  color: $navLinkColor;
+.emailBlock {
+  position: relative;
+  pointer-events: fill;
+
+  button {
+    background-color: transparent;
+    color: $textLight;
+
+  }
+
+  .loginOptions {
+    background-color: #bdbdbd;
+    top: 30px;
+    left: 0;
+
+    width: 100%;
+
+    background: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    border-radius: 16px;
+    color: $textDark;
+    min-width: 100px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    &>* {
+     padding: 10px;
+      color: $textDark;
+      font-weight: bold;
+    }
+    &>*:last-child {
+      border-top: 1px solid black;
+      color: $headerColor;
+    }
+  }
 }
 
-.link_active {
-  color: $navLinkColorActive;
-}
