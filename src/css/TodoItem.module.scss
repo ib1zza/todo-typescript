@@ -4,9 +4,14 @@
   display: flex;
   align-items: start;
   justify-content: space-between;
-  border: 2px solid $bgDark;
+  border: 4px solid $bgDark;
   border-radius: $borderRadius;
   padding: 10px;
+}
+
+.todoContainer_Editing {
+  border: 4px solid black;
+  background-color: #ececec;
 }
 
 .todo_block__description {
@@ -17,7 +22,6 @@
   overflow: hidden; /* Обрезаем всё за пределами блока */
   text-overflow: ellipsis; /* Добавляем многоточие */
 }
-
 
 .completeButton:disabled {
   visibility: hidden;

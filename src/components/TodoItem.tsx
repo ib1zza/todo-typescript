@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useAppDispatch } from "../hooks/hooks";
 import s from "../css/TodoItem.module.scss";
 import Button from "../UI/Button";
 import {
-  completeTodo,
-  deleteTodo,
+  FetchCompleteTodo,
   FetchDeleteTodo,
 } from "../store/reducers/TodoSlice";
 import EditForm from "./EditForm";
@@ -16,7 +15,6 @@ import {
   faInfo,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { addTodo } from "../store/reducers/TodoCompletedSlice";
 import MouseOver from "../UI/MouseOver";
 import TodoDescription from "./TodoDescription";
 
@@ -26,34 +24,47 @@ interface TodoItemProps {
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const [editMode, setEditMode] = useState(false);
+  // const [col, setCol] = useState(todo.priority);
   const dispatch = useAppDispatch();
 
-  let wrapperClasses = s.todoContainer;
+  const wrapperClasses = useMemo(() => {
+    let wp = s.todoContainer;
 
-  switch (todo.priority) {
-    case 1:
-      wrapperClasses += " " + s.p1;
-      break;
-    case 2:
-      wrapperClasses += " " + s.p2;
-      break;
-    case 3:
-      wrapperClasses += " " + s.p3;
-      break;
-    case 4:
-      wrapperClasses += " " + s.p4;
-      break;
-  }
+    if (editMode) {
+      return wp + " " + s.todoContainer_Editing;
+    }
+    switch (todo.priority) {
+      case 1:
+        wp += " " + s.p1;
+        break;
+      case 2:
+        wp += " " + s.p2;
+        break;
+      case 3:
+        wp += " " + s.p3;
+        break;
+      case 4:
+        wp += " " + s.p4;
+        break;
+    }
+    return wp;
+  }, [todo.priority, editMode]);
 
   const handleCompleteTodo = () => {
-    dispatch(
-      addTodo({
-        ...todo,
-        updatedAt: new Date(Date.now()).toISOString(),
-      })
-    );
-    dispatch(completeTodo(todo._id));
+    // dispatch(
+    //   addTodo({
+    //     ...todo,
+    //     updatedAt: new Date(Date.now()).toISOString(),
+    //   })
+    // );
+    // dispatch(completeTodo(todo._id));
+    dispatch(FetchCompleteTodo(todo));
   };
+
+  //!костыль, временно
+  // if (todo.status) {
+  //   return null;
+  // }
 
   return (
     <div className={wrapperClasses}>
@@ -66,7 +77,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           <FontAwesomeIcon icon={faCircleCheck} />
         </button>
         {editMode ? (
-          <EditForm prevTodo={todo} onAbort={() => setEditMode(false)} />
+          <EditForm
+            prevTodo={todo}
+            onAbort={() => setEditMode(false)}
+            // onChangeCol={(n) => setCol(n)}
+          />
         ) : (
           <TodoDescription todo={todo} />
         )}
