@@ -3,6 +3,7 @@ export type Todo = {
   title: string;
   description?: string;
   priority: number;
+  status: boolean;
   createdAt: string;
   updatedAt?: string;
   __v?: number;

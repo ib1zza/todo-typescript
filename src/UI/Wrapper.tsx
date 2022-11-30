@@ -3,9 +3,10 @@ import s from "../css/Wrapper.module.scss";
 
 interface WrapperProps {
   children?: React.ReactNode;
+  className?: string;
 }
-const Wrapper: React.FC<WrapperProps> = ({ children }) => {
-  return <div className={s.wrapper}>{children}</div>;
+const Wrapper: React.FC<WrapperProps> = ({ children, className }) => {
+  return <div className={s.wrapper + " " + className}>{children}</div>;
 };
 
 export default Wrapper;

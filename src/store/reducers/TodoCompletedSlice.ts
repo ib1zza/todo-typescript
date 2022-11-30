@@ -7,24 +7,7 @@ interface TodoCompletedState {
 }
 
 const initialState: TodoCompletedState = {
-  todos: [
-    {
-      _id: "100",
-      title: "completed task",
-      description: "comp1",
-      priority: 4,
-      createdAt: new Date("2022-10-31T14:35:45.051Z").toISOString(),
-      dateOfCompletion: new Date(Date.now()).toISOString(),
-    },
-    {
-      _id: "101",
-      title: "completed task 011",
-      description: "comp2",
-      priority: 1,
-      createdAt: new Date("2022-09-31T14:35:45.051Z").toISOString(),
-      dateOfCompletion: new Date(Date.now()).toISOString(),
-    },
-  ],
+  todos: [],
   currentSort: "title",
 };
 

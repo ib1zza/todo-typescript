@@ -142,7 +142,8 @@ interface FetchUpdateTodoProps {
   id: string;
   title: string;
   description: string;
-  priority: string;
+  priority: number;
+  status: boolean;
 }
 
 export const FetchUpdateTodo = createAsyncThunk<
@@ -151,15 +152,54 @@ export const FetchUpdateTodo = createAsyncThunk<
   { rejectValue: string }
 >(
   "todo/FetchUpdateTodo",
-  async function ({ id, title, description, priority }, { rejectWithValue }) {
+  async function (
+    { id, title, description, priority, status },
+    { rejectWithValue }
+  ) {
     console.log(id, title, description, priority);
     const response = await axios
       .put<Todo>(
         `http://localhost:${PORT}/update/${id}`,
         {
-          title: title,
-          description: description,
-          priority: priority,
+          title,
+          description,
+          priority: priority.toString(),
+          status: status.toString(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getLocalToken()}`,
+          },
+        }
+      )
+      .then((res) => res.data)
+      .catch(function (error: AxiosError) {
+        console.log(error.toJSON());
+        return rejectWithValue(error.message);
+      });
+    return response;
+  }
+);
+
+export const FetchCompleteTodo = createAsyncThunk<
+  Todo,
+  Todo,
+  { rejectValue: string }
+>(
+  "todo/FetchCompleteTodo",
+  async function (
+    { _id, title, description, priority, status },
+    { rejectWithValue }
+  ) {
+    console.log(_id + "completed");
+    const response = await axios
+      .put<Todo>(
+        `http://localhost:${PORT}/update/${_id}`,
+        {
+          title,
+          description,
+          priority: priority.toString(),
+          status: true.toString(),
         },
         {
           headers: {
@@ -269,6 +309,15 @@ const TodoSlice = createSlice({
         state.error = null;
       })
       .addCase(FetchUpdateTodo.fulfilled, (state, action) => {
+        const ind = state.list.findIndex((el) => el._id === action.payload._id);
+        state.list[ind] = action.payload;
+        state.loading = false;
+      })
+      .addCase(FetchCompleteTodo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(FetchCompleteTodo.fulfilled, (state, action) => {
         const ind = state.list.findIndex((el) => el._id === action.payload._id);
         state.list[ind] = action.payload;
         state.loading = false;

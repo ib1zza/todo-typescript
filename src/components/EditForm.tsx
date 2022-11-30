@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../UI/Button";
-import { useAppDispatch } from "../hooks/hooks";
-import { editTodo, FetchUpdateTodo } from "../store/reducers/TodoSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { fetchSortedTodos, FetchUpdateTodo } from "../store/reducers/TodoSlice";
 import { Todo } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
@@ -17,19 +17,22 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, onAbort }) => {
   const [data, setData] = useState({
     title: prevTodo.title,
     description: prevTodo.description,
+    priority: prevTodo.priority,
   });
   const dispatch = useAppDispatch();
   const titleInput = useRef<HTMLInputElement>(null);
-
-  const submitHandler = (): void => {
+  const sorting = useAppSelector((state) => state.todo.currentSort);
+  const submitHandler = () => {
     dispatch(
       FetchUpdateTodo({
         id: prevTodo._id,
         title: data.title,
         description: data.description ? data.description : "",
-        priority: prevTodo.priority.toString(),
+        priority: data.priority,
+        status: prevTodo.status,
       })
     );
+    dispatch(fetchSortedTodos(sorting));
     onAbort();
   };
 
@@ -45,27 +48,38 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, onAbort }) => {
         <input
           ref={titleInput}
           className={s.input_title}
-          placeholder={"title"}
+          placeholder={"Title"}
           value={data.title}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setData({ ...data, title: e.target.value })
-          }
+          onChange={(e) => setData({ ...data, title: e.target.value })}
         />
         <input
           className={s.input_description}
-          placeholder={"description"}
+          placeholder={"Description"}
           value={data.description}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setData({ ...data, description: e.target.value })
-          }
+          onChange={(e) => setData({ ...data, description: e.target.value })}
         />
+        <div className={s.priority}>
+          <p>Priority:</p>
+          {[1, 2, 3, 4].map((el) => (
+            <button
+              className={
+                s.prioriry_btn + " " + (el === data.priority ? s.active : "")
+              }
+              onClick={() => setData({ ...data, priority: el })}
+            >
+              {el}
+            </button>
+          ))}
+        </div>
       </div>
       <div className={s.buttons}>
-        <Button onClick={() => submitHandler()}>
-          Submit <FontAwesomeIcon icon={faCheck} />
+        <Button onClick={submitHandler}>
+          <span> Submit </span>
+          <FontAwesomeIcon icon={faCheck} />
         </Button>
-        <Button onClick={() => onAbort()}>
-          Back <FontAwesomeIcon icon={faRotateLeft} />
+        <Button onClick={onAbort}>
+          <span> Cancel </span>
+          <FontAwesomeIcon icon={faRotateLeft} />
         </Button>
       </div>
     </div>

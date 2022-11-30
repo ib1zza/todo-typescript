@@ -1,28 +1,84 @@
+@import "vars";
+
 .inputs_field {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  &>* {
+    background-color: transparent;
+  }
 }
+
 .form_wrapper {
-    width: calc(70% - 65px);
-    display: flex;
-    flex-direction: column;
+  width: calc(70% - 65px);
+  display: flex;
+  flex-direction: column;
 }
 
 .input_description {
-    font-size: 14px;
+  font-size: 14px;
+}
+
+.priority {
+  display: flex;
+  align-items: center;
+
+
+  p {
+    margin-right: 20px;
+  }
+
+  & > button {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    color: $textLight;
+    font-weight: bold;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  .prioriry_btn:nth-child(2) {
+    background-color: $priority1;
+  }
+
+  .prioriry_btn:nth-child(3) {
+    background-color: $priority2;
+  }
+
+  .prioriry_btn:nth-child(4) {
+    background-color: $priority3;
+  }
+
+  .prioriry_btn:nth-child(5) {
+    background-color: $priority4;
+  }
+  .prioriry_btn.active {
+    border: 2px solid black;
+  }
+
+
 }
 
 .input_title {
-    font-size: 25px;
-    font-weight: bold;
+
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .buttons {
-    display: flex;
-    margin-top: 20px;
+  display: flex;
+  margin-top: 20px;
+
+  span {
+    display: inline-block;
+    margin-right: 5px;
+  }
 }
 
-.buttons>:not(:last-child) {
-    margin-right: 10px;
+.buttons > *:not(:last-child) {
+  margin-right: 10px;
 }
