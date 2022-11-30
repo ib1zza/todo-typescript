@@ -32,8 +32,9 @@ const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
 
   useEffect(() => {
     if (!isLogin) return;
+    console.log("useEffectWorking");
     dispatch(fetchSortedTodos(sort));
-  }, [dispatch, sort, list.length, isLogin]);
+  }, [dispatch, sort, list.length]);
 
   return (
     <div className={s.todolistContainer}>

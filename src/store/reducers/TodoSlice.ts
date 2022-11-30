@@ -8,6 +8,14 @@ import axios, { AxiosError } from "axios";
 import { PORT } from "../../BackConfig";
 import { Todo } from "../../types";
 
+const getLocalSort = () => {
+  return localStorage.getItem("sort");
+};
+
+const getLocalToken = () => {
+  return localStorage.getItem("token");
+};
+
 type TodoState = {
   list: Array<Todo>;
   completedList: Array<Todo>;
@@ -19,7 +27,7 @@ type TodoState = {
 const initialState: TodoState = {
   list: [],
   completedList: [],
-  currentSort: "title",
+  currentSort: getLocalSort() || "title",
   loading: false,
   error: null,
 };
@@ -33,7 +41,7 @@ export const fetchAllTodos = createAsyncThunk<
     .get<Todo[]>(`http://localhost:${PORT}/getnotes`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + getLocalToken(),
       },
     })
     .then((res) => res.data)
@@ -54,7 +62,7 @@ export const fetchSortedTodos = createAsyncThunk<
     .get<Todo[]>(`http://localhost:${PORT}/getnotes?sort=${query}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + getLocalToken(),
       },
     })
     .then((res) => res.data)
@@ -62,6 +70,7 @@ export const fetchSortedTodos = createAsyncThunk<
       console.log(error.toJSON());
       return rejectWithValue(error.message);
     });
+  localStorage.setItem("sort", query);
   console.log("fetchSortedTodos");
   return response;
 });
@@ -79,8 +88,6 @@ export const createTodoFetch = createAsyncThunk<
 >(
   "todo/createTodoFetch",
   async function ({ title, description, priority }, { rejectWithValue }) {
-    console.log(`Bearer ${localStorage.getItem("token")}`);
-
     const response = await axios
       .post<Todo>(
         `http://localhost:${PORT}/create`,
@@ -91,7 +98,7 @@ export const createTodoFetch = createAsyncThunk<
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${getLocalToken()}`,
           },
         }
       )
@@ -114,7 +121,7 @@ export const FetchDeleteTodo = createAsyncThunk<
     .delete<string>(`http://localhost:${PORT}/delete/${id}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: "Bearer " + getLocalToken(),
       },
     })
     .then((res) => res.data)
@@ -156,7 +163,7 @@ export const FetchUpdateTodo = createAsyncThunk<
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${getLocalToken()}`,
           },
         }
       )

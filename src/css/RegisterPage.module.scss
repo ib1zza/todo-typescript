@@ -1,19 +1,13 @@
-.loginWrapper {
+@import "vars";
 
-  padding: 30px;
-  width: 600px;
+.registerWrapper {
   margin: 100px auto;
+  width: 600px;
+  padding: 30px;
   border-radius: 50px;
   background-color: #8c8c8c;
   display: flex;
   flex-direction: column;
-
-  h2 {
-    font-size: 20px;
-    text-align: center;
-    margin: 30px 0px;
-
-  }
 
   h1 {
     padding: 40px 0;
@@ -21,6 +15,12 @@
     width: 100%;
     font-weight: bold;
     font-size: 30px;
+  }
+  h2 {
+    font-size: 20px;
+    text-align: center;
+    margin: 30px 0px;
+
   }
 
 
@@ -36,6 +36,11 @@
       background-color: #dadada;
       &:not(:last-child) {
         margin-bottom: 10px;
+      }
+
+      input:not(:valid)  {
+
+        border-right: 15px solid red;
       }
       span {
         display: block;
@@ -57,21 +62,27 @@
       margin: 60px 0;
       width: 100%;
     }
+
+
+    .errorMsg {
+      color: #a40000;
+    }
+
+
   }
 }
 
-.loginInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.successMsg {
+  text-align: center;
+  font-size: 20px;
 
-  &>button {
-    align-self: stretch;
-    align-items: center;
-    justify-content: center;
+  button {
+    margin-top: 30px;
+    width: 100%;
+  }
+  &Button {
+      color: $navLinkColor;
+
   }
 
 }
-
-
-

@@ -5,6 +5,7 @@ import s from "../css/LoginPage.module.scss";
 import { fetchLogin, logOut } from "../store/reducers/LoginSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { clearState } from "../store/reducers/TodoSlice";
+import { PulseLoader } from "react-spinners";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
@@ -45,7 +46,6 @@ const LoginPage = () => {
             <div>
               <span>Email:</span>
               <input
-                className={s.input}
                 type={"email"}
                 placeholder={"example@mail.com"}
                 value={loginData.email}
@@ -58,7 +58,6 @@ const LoginPage = () => {
             <div>
               <span>Password:</span>
               <input
-                className={s.input}
                 type={"password"}
                 placeholder={"*************"}
                 value={loginData.password}
@@ -68,10 +67,20 @@ const LoginPage = () => {
               />
             </div>
 
-            <Button>Login</Button>
+            <Button>
+              {loading ? (
+                <PulseLoader
+                  color="rgba(255, 255, 255, 1)"
+                  margin={5}
+                  size={20}
+                  speedMultiplier={1}
+                />
+              ) : (
+                "Login"
+              )}
+            </Button>
           </form>
         )}
-        {loading && <h1>Loading...</h1>}
         {isLogin && (
           <div className={s.loginInfo}>
             <h2>You are currently logged in at {email.toString()}</h2>

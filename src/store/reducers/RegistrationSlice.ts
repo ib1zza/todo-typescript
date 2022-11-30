@@ -16,7 +16,7 @@ interface RegistrationState {
 }
 
 const initialState: RegistrationState = {
-  isSuccessFull: true,
+  isSuccessFull: false,
   email: "",
   _id: "",
   loading: false,
@@ -52,7 +52,6 @@ export const fetchRegistration = createAsyncThunk<
         console.log(error.toJSON());
         return rejectWithValue(error.message);
       });
-
     return response;
   }
 );
@@ -67,16 +66,19 @@ const RegistrationSlice = createSlice({
         state.email = "";
         state.loading = true;
         state.error = null;
-        state.isSuccessFull = true;
+        state.isSuccessFull = false;
       })
       .addCase(fetchRegistration.fulfilled, (state, action) => {
         state.email = action.payload.email;
         state._id = action.payload._id;
         state.loading = false;
+        state.isSuccessFull = true;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         console.log("Login Error:" + action.payload);
-        state.error = action.payload;
+        state.error = action.payload.includes("422")
+          ? "Email already exists"
+          : action.payload;
         state.loading = false;
         state.isSuccessFull = false;
       });

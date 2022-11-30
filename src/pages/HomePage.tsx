@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               dispatch(setCurrentSort(e.target.value));
               console.log(e.target.value);
-              dispatch(fetchSortedTodos(e.target.value));
+              // dispatch(fetchSortedTodos(e.target.value));
             }}
           >
             <option value={"date"}>by data</option>
@@ -82,7 +82,7 @@ const HomePage: React.FC = () => {
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               dispatch(setCurrentSort(e.target.value));
               console.log(e.target.value);
-              dispatch(fetchSortedTodos(e.target.value));
+              // dispatch(fetchSortedTodos(e.target.value));
             }}
           >
             <option value={"date"}>by date</option>
