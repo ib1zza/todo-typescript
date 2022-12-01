@@ -1,5 +1,7 @@
 import React from "react";
 import s from "../css/Burger.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 interface BurgerProps {
   isActive: boolean;
@@ -12,7 +14,7 @@ const Burger: React.FC<BurgerProps> = ({ isActive, hideF, children }) => {
     <>
       {isActive && <div className={s.burgerBg} onClick={hideF}></div>}
       <div className={s.burger} onClick={hideF}>
-        <span></span>
+        <FontAwesomeIcon icon={faBars} />
       </div>
       {isActive && <div className={s.burgerContent}>{children}</div>}
     </>

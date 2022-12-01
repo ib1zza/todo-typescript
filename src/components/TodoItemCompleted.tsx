@@ -2,16 +2,16 @@ import React from "react";
 import { useAppDispatch } from "../hooks/hooks";
 import s from "../css/TodoItem.module.scss";
 import Button from "../UI/Button";
-import { deleteTodo } from "../store/reducers/TodoCompletedSlice";
-import { TodoCompleted } from "../types";
+import { Todo, TodoCompleted } from "../types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons/faXmark";
 import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import MouseOver from "../UI/MouseOver";
 import TodoDescription from "./TodoDescription";
+import { FetchDeleteTodo } from "../store/reducers/TodoSlice";
 
 interface TodoItemCompletedProps {
-  todo: TodoCompleted;
+  todo: Todo;
 }
 
 const TodoItemCompleted: React.FC<TodoItemCompletedProps> = ({ todo }) => {
@@ -55,7 +55,7 @@ const TodoItemCompleted: React.FC<TodoItemCompletedProps> = ({ todo }) => {
         >
           <FontAwesomeIcon icon={faInfo} />
         </MouseOver>
-        <Button onClick={() => dispatch(deleteTodo(todo._id))}>
+        <Button onClick={() => dispatch(FetchDeleteTodo(todo._id))}>
           <FontAwesomeIcon icon={faXmark} />
         </Button>
       </div>

@@ -1,15 +1,41 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TodoCompleted } from "../../types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Todo, TodoCompleted } from "../../types";
+import axios, { AxiosError } from "axios";
+import { PORT } from "../../BackConfig";
 
 interface TodoCompletedState {
   todos: Array<TodoCompleted>;
   currentSort: string;
 }
 
+const getLocalToken = () => {
+  return localStorage.getItem("token");
+};
+
 const initialState: TodoCompletedState = {
   todos: [],
   currentSort: "title",
 };
+//
+// export const fetchAllCompletedTodos = createAsyncThunk<
+//   Todo[] | [],
+//   undefined,
+//   { rejectValue: string }
+// >("todo/fetchAllCompletedTodos", async function (_, { rejectWithValue }) {
+//   const response = await axios
+//     .get<Todo[]>(`http://localhost:${PORT}/getnotes/completed`, {
+//       headers: {
+//         "Access-Control-Allow-Origin": "*",
+//         Authorization: "Bearer " + getLocalToken(),
+//       },
+//     })
+//     .then((res) => res.data)
+//     .catch(function (error: AxiosError) {
+//       console.log(error.toJSON());
+//       return rejectWithValue(error.message);
+//     });
+//   return response;
+// });
 
 const TodoCompletedSlice = createSlice({
   name: "completed",
@@ -59,5 +85,5 @@ const TodoCompletedSlice = createSlice({
   },
 });
 
-export const { addTodo, deleteTodo, filterTodo } = TodoCompletedSlice.actions;
-export default TodoCompletedSlice.reducer;
+// export const { addTodo, deleteTodo, filterTodo } = TodoCompletedSlice.actions;
+// export default TodoCompletedSlice.reducer;

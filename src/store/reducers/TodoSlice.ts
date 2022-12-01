@@ -8,10 +8,12 @@ import axios, { AxiosError } from "axios";
 import { PORT } from "../../BackConfig";
 import { Todo } from "../../types";
 
-const getLocalSort = () => {
+const getLocalSortUncompleted = () => {
   return localStorage.getItem("sort");
 };
-
+const getLocalSortCompleted = () => {
+  return localStorage.getItem("completedSort");
+};
 const getLocalToken = () => {
   return localStorage.getItem("token");
 };
@@ -19,7 +21,8 @@ const getLocalToken = () => {
 type TodoState = {
   list: Array<Todo>;
   completedList: Array<Todo>;
-  currentSort: string;
+  currentSortUncompleted: string;
+  currentSortCompleted: string;
   loading: boolean;
   error: null | string;
 };
@@ -27,10 +30,31 @@ type TodoState = {
 const initialState: TodoState = {
   list: [],
   completedList: [],
-  currentSort: getLocalSort() || "title",
+  currentSortUncompleted: getLocalSortUncompleted() || "title",
+  currentSortCompleted: getLocalSortCompleted() || "title",
   loading: false,
   error: null,
 };
+
+export const fetchAllCompletedTodos = createAsyncThunk<
+  Todo[] | [],
+  undefined,
+  { rejectValue: string }
+>("todo/fetchAllCompletedTodos", async function (_, { rejectWithValue }) {
+  const response = await axios
+    .get<Todo[]>(`http://localhost:${PORT}/getnotes/completed`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + getLocalToken(),
+      },
+    })
+    .then((res) => res.data)
+    .catch(function (error: AxiosError) {
+      console.log(error.toJSON());
+      return rejectWithValue(error.message);
+    });
+  return response;
+});
 
 export const fetchAllTodos = createAsyncThunk<
   Todo[] | [],
@@ -237,7 +261,7 @@ const TodoSlice = createSlice({
       state.list[elIndex] = edited;
     },
     setCurrentSort: (state, action: PayloadAction<string>) => {
-      state.currentSort = action.payload;
+      state.currentSortUncompleted = action.payload;
     },
     clearState: (state) => {
       state.list = [];
@@ -302,6 +326,9 @@ const TodoSlice = createSlice({
       })
       .addCase(FetchDeleteTodo.fulfilled, (state, action) => {
         state.list = state.list.filter((el) => el._id !== action.payload);
+        state.completedList = state.completedList.filter(
+          (el) => el._id !== action.payload
+        );
         state.loading = false;
       })
       .addCase(FetchUpdateTodo.pending, (state) => {
@@ -320,6 +347,14 @@ const TodoSlice = createSlice({
       .addCase(FetchCompleteTodo.fulfilled, (state, action) => {
         const ind = state.list.findIndex((el) => el._id === action.payload._id);
         state.list[ind] = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchAllCompletedTodos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllCompletedTodos.fulfilled, (state, action) => {
+        state.completedList = action.payload;
         state.loading = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {

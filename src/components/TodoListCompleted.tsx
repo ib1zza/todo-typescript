@@ -1,18 +1,18 @@
 import * as React from "react";
-import TodoItem from "./TodoItem";
 import s from "../css/TodoList.module.scss";
-import { Todo, TodoCompleted } from "../types";
-import TodoItemCompleted from "./TodoItemCompleted";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useEffect, useMemo } from "react";
-import { fetchSortedTodos } from "../store/reducers/TodoSlice";
-import { ClipLoader, FadeLoader, ScaleLoader } from "react-spinners";
+import { fetchAllCompletedTodos } from "../store/reducers/TodoSlice";
+import { FadeLoader } from "react-spinners";
+import TodoItemCompleted from "./TodoItemCompleted";
 
-const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
+const TodoListCompleted: React.FC<{ searchQuery: string }> = ({
+  searchQuery,
+}) => {
   const {
     loading,
     error,
-    list,
+    completedList: list,
     currentSortUncompleted: sort,
   } = useAppSelector((state) => state.todo);
 
@@ -33,7 +33,7 @@ const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   useEffect(() => {
     if (!isLogin) return;
     console.log("useEffectWorking");
-    dispatch(fetchSortedTodos(sort));
+    dispatch(fetchAllCompletedTodos());
   }, [dispatch, sort, list.length]);
 
   return (
@@ -45,23 +45,14 @@ const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       )}
       {list.length
         ? null
-        : isLogin && <div className={s.errorMsg}>no todos found</div>}
+        : isLogin && (
+            <div className={s.errorMsg}>{error || "no todos found "}</div>
+          )}
 
       {isLogin &&
-        searchedMas.map((el) => {
-          // if (
-          //   "dateOfCompletion" in el &&
-          //   typeof el.dateOfCompletion !== "undefined"
-          // ) {
-          //   return (
-          //     <TodoItemCompleted todo={el as TodoCompleted} key={el._id} />
-          //   );
-          // } else {
-          return <TodoItem todo={el as Todo} key={el._id} />;
-          // }
-        })}
+        searchedMas.map((el) => <TodoItemCompleted todo={el} key={el._id} />)}
     </div>
   );
 };
 
-export default TodoList;
+export default TodoListCompleted;

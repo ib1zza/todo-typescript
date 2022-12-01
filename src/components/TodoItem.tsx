@@ -51,20 +51,13 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   }, [todo.priority, editMode]);
 
   const handleCompleteTodo = () => {
-    // dispatch(
-    //   addTodo({
-    //     ...todo,
-    //     updatedAt: new Date(Date.now()).toISOString(),
-    //   })
-    // );
-    // dispatch(completeTodo(todo._id));
     dispatch(FetchCompleteTodo(todo));
   };
 
   //!костыль, временно
-  // if (todo.status) {
-  //   return null;
-  // }
+  if (todo.status) {
+    return null;
+  }
 
   return (
     <div className={wrapperClasses}>
@@ -77,33 +70,35 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           <FontAwesomeIcon icon={faCircleCheck} />
         </button>
         {editMode ? (
-          <EditForm
-            prevTodo={todo}
-            onAbort={() => setEditMode(false)}
-            // onChangeCol={(n) => setCol(n)}
-          />
+          <EditForm prevTodo={todo} onAbort={() => setEditMode(false)} />
         ) : (
           <TodoDescription todo={todo} />
         )}
       </div>
+
       <div className={s.buttons}>
-        <Button onClick={() => setEditMode((editMode) => !editMode)}>
-          <div className={s.buttonEdit}>Edit</div>
-          <FontAwesomeIcon icon={faPenToSquare} />
-        </Button>
-        <MouseOver
-          text={
-            "Date of creation: " +
-            todo.createdAt.slice(0, 10) +
-            " " +
-            todo.createdAt.slice(11, 19)
-          }
-        >
-          <FontAwesomeIcon icon={faInfo} />
-        </MouseOver>
-        <Button onClick={() => dispatch(FetchDeleteTodo(todo._id))}>
-          <FontAwesomeIcon icon={faXmark} />
-        </Button>
+        {!editMode && (
+          <>
+            <Button onClick={() => setEditMode((editMode) => !editMode)}>
+              <div className={s.buttonEdit}>Edit</div>
+              <FontAwesomeIcon icon={faPenToSquare} />
+            </Button>
+
+            <MouseOver
+              text={
+                "Date of creation: " +
+                todo.createdAt.slice(0, 10) +
+                " " +
+                todo.createdAt.slice(11, 19)
+              }
+            >
+              <FontAwesomeIcon icon={faInfo} />
+            </MouseOver>
+            <Button onClick={() => dispatch(FetchDeleteTodo(todo._id))}>
+              <FontAwesomeIcon icon={faXmark} />
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

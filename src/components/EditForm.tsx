@@ -21,7 +21,7 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, onAbort }) => {
   });
   const dispatch = useAppDispatch();
   const titleInput = useRef<HTMLInputElement>(null);
-  const sorting = useAppSelector((state) => state.todo.currentSort);
+  const sorting = useAppSelector((state) => state.todo.currentSortUncompleted);
   const submitHandler = () => {
     dispatch(
       FetchUpdateTodo({
@@ -58,7 +58,7 @@ const EditForm: React.FC<EditFormProps> = ({ prevTodo, onAbort }) => {
           value={data.description}
           onChange={(e) => setData({ ...data, description: e.target.value })}
         />
-        <div className={s.priority}>
+        <div className={s.priority_block}>
           <p>Priority:</p>
           {[1, 2, 3, 4].map((el) => (
             <button

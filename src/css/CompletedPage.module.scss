@@ -2,16 +2,43 @@
   width: 70%;
   display: flex;
   align-items: start;
-  padding: 10px 0;
+  @media screen and (max-width: 570px) {
+    width: calc(100% - 60px);
+  }
 }
 
 .todoFilters {
+  @media screen and (max-width: 570px) {
+    display: none;
+  }
   display: flex;
   flex-direction: column;
   //align-items: start;
   width: 30%;
-  padding: 10px;
   &>*:not(:last-child) {
     margin-bottom: 10px;
   }
+}
+
+.header {
+  font-weight: bold;
+  text-align: center;
+  font-size: 26px;
+}
+
+.CompletedPageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+  &>*:not(:last-child) {
+    margin-right: 20px;
+  }
+  @media screen and (max-width: 570px) {
+    width: calc(100% );
+    &>*:not(:last-child) {
+      margin-right: 0px;
+    }
+  }
+
 }
