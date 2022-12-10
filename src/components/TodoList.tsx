@@ -1,12 +1,11 @@
 import * as React from "react";
 import TodoItem from "./TodoItem";
 import s from "../css/TodoList.module.scss";
-import { Todo, TodoCompleted } from "../types";
-import TodoItemCompleted from "./TodoItemCompleted";
+import { Todo } from "../types";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useEffect, useMemo } from "react";
 import { fetchSortedTodos } from "../store/reducers/TodoSlice";
-import { ClipLoader, FadeLoader, ScaleLoader } from "react-spinners";
+import { AnimatePresence, motion } from "framer-motion";
 
 const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   const {
@@ -35,31 +34,38 @@ const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
     console.log("useEffectWorking");
     dispatch(fetchSortedTodos(sort));
   }, [dispatch, sort, list.length]);
-
+  const AnimationVariants = {
+    hidden: { opacity: 0, y: 0 },
+    visible: { opacity: 1, y: 0 },
+    exit: { x: -200, opacity: 0 },
+  };
   return (
     <div className={s.todolistContainer}>
-      {loading && (
-        <div className={s.todolistContainerBlur}>
-          <FadeLoader color="#fff" height={30} margin={15} width={6} />
-        </div>
-      )}
+      {/*{loading && (*/}
+      {/*  <div className={s.todolistContainerBlur}>*/}
+      {/*    <FadeLoader color="#fff" height={30} margin={15} width={6} />*/}
+      {/*  </div>*/}
+      {/*)}*/}
       {list.length
         ? null
         : isLogin && <div className={s.errorMsg}>no todos found</div>}
-
-      {isLogin &&
-        searchedMas.map((el) => {
-          // if (
-          //   "dateOfCompletion" in el &&
-          //   typeof el.dateOfCompletion !== "undefined"
-          // ) {
-          //   return (
-          //     <TodoItemCompleted todo={el as TodoCompleted} key={el._id} />
-          //   );
-          // } else {
-          return <TodoItem todo={el as Todo} key={el._id} />;
-          // }
-        })}
+      <AnimatePresence>
+        {isLogin &&
+          searchedMas.map((el) => {
+            return el.status ? null : (
+              <TodoItem
+                viewport={{ amount: 0.3 }}
+                initial={"hidden"}
+                whileInView={"visible"}
+                exit={"exit"}
+                transition={{ duration: 0.2 }}
+                variants={AnimationVariants}
+                todo={el as Todo}
+                key={el._id}
+              />
+            );
+          })}
+      </AnimatePresence>
     </div>
   );
 };

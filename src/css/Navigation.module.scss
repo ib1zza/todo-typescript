@@ -92,7 +92,7 @@
   }
 
   .loginOptions {
-    background-color: #bdbdbd;
+
     top: 30px;
     left: 0;
 
@@ -106,11 +106,15 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     &>* {
      padding: 10px;
       color: $textDark;
       font-weight: bold;
+      &:hover {
+        background-color: #e3e3e3;
+      }
     }
     &>*:last-child {
       border-top: 1px solid black;

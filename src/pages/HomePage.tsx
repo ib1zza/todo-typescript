@@ -12,6 +12,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import SearchBar from "../UI/SearchBar";
 import { setCurrentSort } from "../store/reducers/TodoSlice";
 import Burger from "../UI/Burger";
+import { AnimatePresence } from "framer-motion";
 
 const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -24,12 +24,7 @@
     right: 0; top: 0; /* Положение элемента */
     width: 30px; /* Ширина градиента*/
     height: 100%; /* Высота родителя */
-    /* Градиент */
-    background: -moz-linear-gradient(left, #FFFFFF33, #ffffff 100%);
-    background: -webkit-linear-gradient(left, #FFFFFF33, #ffffff 100%);
-    background: -o-linear-gradient(left, #FFFFFF33, #ffffff 100%);
-    background: -ms-linear-gradient(left, #FFFFFF33, #ffffff 100%);
-    background: linear-gradient(to right, #FFFFFF33, #ffffff 100%);
+
 }
 
 .todo_info {
