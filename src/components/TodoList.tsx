@@ -7,12 +7,13 @@ import { useEffect, useMemo } from "react";
 import { fetchSortedTodos } from "../store/reducers/TodoSlice";
 import { AnimatePresence, motion } from "framer-motion";
 
-const TodoList: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
+const TodoList: React.FC = () => {
   const {
     loading,
     error,
     list,
     currentSortUncompleted: sort,
+    searchQuery,
   } = useAppSelector((state) => state.todo);
 
   const searchedMas = useMemo(

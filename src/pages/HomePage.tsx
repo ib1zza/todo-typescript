@@ -10,15 +10,15 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import SearchBar from "../UI/SearchBar";
-import { setCurrentSort } from "../store/reducers/TodoSlice";
+import { setCurrentSort, setSearchQuery } from "../store/reducers/TodoSlice";
 import Burger from "../UI/Burger";
-import { AnimatePresence } from "framer-motion";
 
 const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const [modal, setModal] = useState(false);
   const [menu, setMenu] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchQuery = useAppSelector((state) => state.todo.searchQuery);
+
   const sort = useAppSelector((state) => state.todo.currentSortUncompleted);
   const isLogin = useAppSelector((state) => state.login.isLogin);
 
@@ -35,14 +35,14 @@ const HomePage: React.FC = () => {
       <Wrapper>
         <div className={s.HomePageWrapper}>
           <div className={s.todoBlock}>
-            <TodoList searchQuery={searchQuery} />
+            <TodoList />
           </div>
 
           <div className={s.todoFilters}>
             <SearchBar
               value={searchQuery}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSearchQuery(e.target.value)
+                dispatch(setSearchQuery(e.target.value))
               }
             />
             <SortSelect
@@ -51,8 +51,8 @@ const HomePage: React.FC = () => {
                 dispatch(setCurrentSort(e.target.value));
               }}
             >
-              <option value={"date"}>by date</option>
-              <option value={"daterev"}>by datarev</option>
+              <option value={"date"}>by data</option>
+              <option value={"daterev"}>by date reversed</option>
               <option value={"priority"}>by priority </option>
               <option value={"title"}>by title </option>
             </SortSelect>
@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
             <SearchBar
               value={searchQuery}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSearchQuery(e.target.value)
+                dispatch(setSearchQuery(e.target.value))
               }
             />
             <SortSelect
@@ -81,7 +81,7 @@ const HomePage: React.FC = () => {
               }}
             >
               <option value={"date"}>by data</option>
-              <option value={"daterev"}>by datarev</option>
+              <option value={"daterev"}>by date reversed</option>
               <option value={"priority"}>by priority </option>
               <option value={"title"}>by title </option>
             </SortSelect>

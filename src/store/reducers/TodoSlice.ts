@@ -24,6 +24,8 @@ type TodoState = {
   currentSortUncompleted: string;
   currentSortCompleted: string;
   loading: boolean;
+
+  searchQuery: string;
   error: null | string;
 };
 
@@ -33,6 +35,7 @@ const initialState: TodoState = {
   currentSortUncompleted: getLocalSortUncompleted() || "title",
   currentSortCompleted: getLocalSortCompleted() || "title",
   loading: false,
+  searchQuery: "",
   error: null,
 };
 
@@ -266,6 +269,9 @@ const TodoSlice = createSlice({
     clearState: (state) => {
       state.list = [];
     },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
     // filterTodo: (state, action: PayloadAction<string | undefined>) => {
     //   if (action.payload) state.currentSort = action.payload;
     //
@@ -374,6 +380,7 @@ export const {
   deleteTodo,
   completeTodo,
   editTodo,
+  setSearchQuery,
   setCurrentSort,
   clearState,
 } = TodoSlice.actions;
